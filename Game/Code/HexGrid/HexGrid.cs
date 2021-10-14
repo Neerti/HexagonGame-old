@@ -46,6 +46,26 @@ namespace Hexagon
 			}
 		}
 
+		public Image GenerateHeightNoiseImage()
+		{
+			var img = new Image();
+			img.Create(SizeX, SizeY, false, Image.Format.Rgba8);
+			img.Lock();
+			for(var x = 0; x < SizeX; x++)
+			{
+				for(var y = 0; y < SizeY; y++)
+				{
+					float value = grid[x,y].Height;
+
+					var chosen_color = Colors.Black;
+					chosen_color = chosen_color.LinearInterpolate(Colors.White, value);
+					img.SetPixel(x, y, chosen_color);
+				}
+			}
+			img.Unlock();
+			return img;
+		}
+
 		public Image GenerateMapImage()
 		{
 			var img = new Image();

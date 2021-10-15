@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Hexagon
 {
 	/// <summary>
@@ -6,19 +8,27 @@ namespace Hexagon
 	public class Hex
 	{
 		// Cartesian coordinates.
-		readonly int x, y;
+		public readonly int X, Y;
 		// Cube coordinates. TODO
-		readonly int q, r, s;
+		public readonly int q, r, s;
 
 		public float Height;
 		public float Humidity;
 		public float Temperature;
-		
-		TileType tile_type = TileType.VOID;
 
-		enum TileType
+		// If false, the player cannot see the hex at all.
+		public bool Explored = false;
+
+		// If false (and Explored is true,) the hex will be darkened.
+		public bool Observed = false;
+
+		public int CartesianBiomeBitmask = 0;
+		
+		public TileType tile_type = TileType.BASE;
+
+		public enum TileType
 		{
-			VOID = 0,
+			BASE = 0,
 			GRASS = 1,
 			SHALLOW_SALT_WATER = 2,
 			DEEP_SALT_WATER = 3,
@@ -32,8 +42,8 @@ namespace Hexagon
 
 		public Hex(int new_x, int new_y)
 		{
-			x = new_x;
-			y = new_y;
+			X = new_x;
+			Y = new_y;
 		}
 
 	}

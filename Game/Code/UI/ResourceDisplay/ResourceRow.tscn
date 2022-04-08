@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Code/ResourceDisplay/ResourceNoSprite.png" type="Texture" id=1]
+[ext_resource path="res://Code/UI/ResourceDisplay/ResourceNoSprite.png" type="Texture" id=1]
 
 [node name="ResourceRow" type="HBoxContainer"]
 margin_right = 120.0

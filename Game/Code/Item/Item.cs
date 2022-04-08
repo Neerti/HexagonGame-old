@@ -14,7 +14,7 @@ namespace Hexagon.Items
 	
 	/// <summary>
 	/// Items are not individual instances, but are instead an aggregate of a specific idea 
-	/// of a physicial or conceptual object, such as sticks or rocks.
+	/// of a physical or conceptual object, such as sticks or rocks.
 	/// </summary>
 	public abstract class Item
 	{

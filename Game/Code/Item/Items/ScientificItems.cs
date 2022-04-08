@@ -17,7 +17,7 @@ namespace Hexagon.Items
 		{
 			DisplayName = "Inspiration";
 			GameplayDescription = "Used in researching new technologies.";
-			FluffDescription = "An idea, crystalized in the mind.";
+			FluffDescription = "An idea, crystallized in the mind.";
 			ItemID = ItemIDs.Inspiration;
 		}
 	}

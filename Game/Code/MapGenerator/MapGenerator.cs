@@ -73,7 +73,7 @@ namespace Hexagon
 				//	float equatorial_heat_band = Mathf.Cos(polar_distance * Mathf.Deg2Rad(90));
 				//	tile.Temperature = Mathf.Lerp(0f, 1f, equatorial_heat_band);
 					float equatorial_heat = Mathf.Lerp(1f, 0f, polar_distance);
-					float heat_noise_value = (heat_noise.GetNoise3d(noise_x, noise_y, noise_z) + 1.0f);
+					float heat_noise_value = heat_noise.GetNoise3d(noise_x, noise_y, noise_z) + 1.0f;
 
 					float heat_value = heat_noise_value * equatorial_heat;
 					

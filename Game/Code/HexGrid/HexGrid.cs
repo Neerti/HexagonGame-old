@@ -8,8 +8,8 @@ namespace Hexagon
 	/// </summary>
 	public class HexGrid
 	{
-		readonly public int SizeX;
-		readonly public int SizeY;
+		public readonly int SizeX;
+		public readonly int SizeY;
 		private Hex[,] grid;
 
 		public HexGrid(int new_size_x, int new_size_y)
@@ -131,10 +131,10 @@ namespace Hexagon
 					{
 						chosen_tile_type = Hex.TileType.BEACH_SAND;
 					}
-//					else if(value > (-0.15f + sea_level_offset))
-//					{
-//						chosen_tile_type = Hex.TileType.SHALLOW_SALT_WATER;
-//					}
+					else if(value > (-0.15f + sea_level_offset))
+					{
+						chosen_tile_type = Hex.TileType.SHALLOW_SALT_WATER;
+					}
 					else
 					{
 						chosen_tile_type = Hex.TileType.DEEP_SALT_WATER;
@@ -187,7 +187,7 @@ namespace Hexagon
 
 					if(GetHexBiomeBitmask(tile) != 15)
 					{
-						chosen_color = chosen_color.Darkened(0.4f);
+						chosen_color = chosen_color.Darkened(0.5f);
 					}
 
 					img.SetPixel(x, y, chosen_color);
@@ -213,7 +213,7 @@ namespace Hexagon
 
 					if(GetHexBiomeBitmask(tile) != 15)
 					{
-						chosen_color = chosen_color.Darkened(0.4f);
+						chosen_color = chosen_color.Darkened(0.5f);
 					}
 					img.SetPixel(x, y, chosen_color);
 					

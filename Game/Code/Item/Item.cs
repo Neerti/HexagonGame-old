@@ -4,12 +4,16 @@ namespace Hexagon.Items
 {
 	public enum ItemIDs
 	{
-		Base = 0,
-		Stick = 1,
-		Stone = 2,
-		FreshWater = 3,
-		Berry = 4,
-		Inspiration = 5
+		Base,
+		Stick,
+		Stone,
+		CleanWater,
+		Berry,
+		Apple,
+		Inspiration,
+		SpoiledFood,
+		ContaminatedWater,
+		Tea
 	}
 	
 	/// <summary>
@@ -24,9 +28,15 @@ namespace Hexagon.Items
 		public ItemIDs ItemID { get; protected set; } = ItemIDs.Base;
 
 		/// <summary>
-		/// The name of the <see cref="Item"/>, displayed in UIs.
+		/// The name of the <see cref="Item"/>, displayed in UIs, generally in singular form.
 		/// </summary>
 		public string DisplayName { get; protected set; }
+		
+		/// <summary>
+		/// The name of multiple <see cref="Item"/>s, displayed in UIs. If empty, <see cref="DisplayName"/> is
+		/// used instead.
+		/// </summary>
+		public string DisplayNamePlural { get; protected set; }
 
 		/// <summary>
 		/// Describes what the <see cref="Item"/> might be used for in gameplay.
@@ -49,6 +59,8 @@ namespace Hexagon.Items
 		/// Used to categorize different kinds of <see cref="Item"/>s together.
 		/// </summary>
 		public ItemCategory Category { get; protected set; } = ItemCategory.General;
+
+		public float Mass { get; protected set; } = 1.0f;
 
 		public enum ItemCategory
 		{

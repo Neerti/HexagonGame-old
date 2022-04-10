@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-namespace Hexagon.Calenders
+namespace Hexagon.Calendars
 {
 
-	public class GameCalender : Node
+	public class GameCalendar : Node
 	{
 		[Signal]
 		public delegate void DayPassed();
@@ -24,7 +24,7 @@ namespace Hexagon.Calenders
 			return new DateTime(1, 1, 1, 8, 0, 0);
 		}
 
-		public GameCalender()
+		public GameCalendar()
 		{
 			CurrentDateTime = GetInitialDateTime();
 			DateTimeStarted = CurrentDateTime;

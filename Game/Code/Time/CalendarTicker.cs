@@ -2,9 +2,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace Hexagon.Calenders
+namespace Hexagon.Calendars
 {
-	public class CalenderTicker : Timer
+	public class CalendarTicker : Timer
 	{
 		[Signal]
 		public delegate void PauseToggled(bool setPaused);
@@ -20,7 +20,7 @@ namespace Hexagon.Calenders
 			PauseGame(true); // Start out paused.
 			SetSpeed(SpeedIndex);
 			Start();
-			Connect("timeout", GetParent<GameCalender>(), nameof(GameCalender.AdvanceTime));
+			Connect("timeout", GetParent<GameCalendar>(), nameof(GameCalendar.AdvanceTime));
 
 		}
 		

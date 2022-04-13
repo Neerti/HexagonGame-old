@@ -34,6 +34,7 @@ namespace Hexagon.Calendars
 		{
 			var oldDateTime = CurrentDateTime;
 			CurrentDateTime = CurrentDateTime.AddHours(1);
+			//CurrentDateTime = CurrentDateTime.AddDays(1);
 			
 			if (CurrentDateTime.Day != oldDateTime.Day)
 			{
@@ -49,7 +50,8 @@ namespace Hexagon.Calendars
 			{
 				EmitSignal(nameof(YearPassed));
 			}
-			GD.Print(CurrentDateTime.ToString("g")); // TODO testing
+			// TODO Make a UI to display this.
+			GD.Print(CurrentDateTime.ToString("ddd MM/dd/yyyy hh:mm"));
 		}
 		
 	}	

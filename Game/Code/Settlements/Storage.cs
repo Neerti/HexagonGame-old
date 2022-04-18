@@ -28,21 +28,26 @@ namespace Hexagon.Settlements
 			}
 		}
 
-		public bool HasItem(ItemIDs thing)
+		public bool HasItem(ItemIDs thing, int amount = 1)
 		{
-			return Items.ContainsKey(thing);
+			if (Items.ContainsKey(thing))
+			{
+				return amount <= Items[thing];
+			}
+
+			return false;
 		}
 
 		public void RemoveItem(ItemIDs thing, int amount)
 		{
 			if (!HasItem(thing))
 			{
-				throw new Exception("Was asked to remove an item that it doesn't have.");
+				throw new Exception("Was asked to remove an item (" + thing + ") that it doesn't have.");
 			}
 
-			if (Items[thing] < amount)
+			if (!HasItem(thing, amount))
 			{
-				throw new Exception("Was asked to remove more items than it has.");
+				throw new Exception("Was asked to remove more items (" + thing +") than it has.");
 			}
 
 			Items[thing] -= amount;

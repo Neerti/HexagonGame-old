@@ -13,6 +13,8 @@ namespace Hexagon.Tests
 			_storage = new Storage();
 		}
 
+		
+		// AddItem()
 		[Fact]
 		public void AddItem_AddingSingleItem_ShouldAddSuccessfully()
 		{
@@ -39,6 +41,8 @@ namespace Hexagon.Tests
 			Assert.Equal(2, _storage.Items.Count);
 		}
 
+		
+		// HasItem()
 		[Fact]
 		public void HasItem_EmptyStorage_ShouldReturnFalse()
 		{
@@ -61,6 +65,24 @@ namespace Hexagon.Tests
 			Assert.False(_storage.HasItem(ItemIDs.Apple));
 		}
 
+		[Fact]
+		public void HasItem_NotEnoughItemsInStorage_ShouldReturnFalse()
+		{
+			_storage.AddItem(ItemIDs.Apple, 1);
+
+			Assert.False(_storage.HasItem(ItemIDs.Apple, 2));
+		}
+		
+		[Fact]
+		public void HasItem_SomeItemsInStorage_ShouldReturnTrue()
+		{
+			_storage.AddItem(ItemIDs.Apple, 2);
+
+			Assert.True(_storage.HasItem(ItemIDs.Apple, 2));
+		}
+
+		
+		// RemoveItem()
 		[Fact]
 		public void RemoveItem_DoesHaveOne_ShouldRemoveKey()
 		{

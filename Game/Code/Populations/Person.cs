@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Hexagon.Populations
 {
@@ -17,11 +18,23 @@ namespace Hexagon.Populations
 		/// </summary>
 		public DateTime Birthday { get; private set; }
 
+		public PersonLifecycle CurrentLifecycle = PersonLifecycle.Adult;
+
 
 		public TimeSpan GetAge(DateTime currentDate)
 		{
 			var result = currentDate - Birthday;
 			return currentDate - Birthday;
+		}
+
+		public float GetFoodRequirement()
+		{
+			return 1.0f;
+		}
+
+		public float GetWaterRequirement()
+		{
+			return 1.0f;
 		}
 	}
 }

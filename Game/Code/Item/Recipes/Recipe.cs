@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 
 namespace Hexagon.Items.Recipes
@@ -12,7 +11,7 @@ namespace Hexagon.Items.Recipes
 		/// <summary>
 		/// The name of the recipe, shown in the UI.
 		/// </summary>
-		protected string Name;
+		protected string DisplayName;
 
 		/// <summary>
 		/// Contains the required ingredients for producing the output items, which will be consumed.
@@ -26,5 +25,26 @@ namespace Hexagon.Items.Recipes
 		/// </summary>
 		protected Dictionary<ItemIDs, int> Outputs;
 
+		public override string ToString()
+		{
+			return DisplayName;
+		}
+	}
+	
+	public class TheoryRecipe : Recipe
+	{
+		public TheoryRecipe()
+		{
+			DisplayName = "Write Theories";
+			Inputs = new Dictionary<ItemIDs, int>
+			{
+				{ItemIDs.Inspiration, 50},
+				{ItemIDs.Paper, 1}
+			};
+			Outputs = new Dictionary<ItemIDs, int>
+			{
+				{ItemIDs.Theory, 1}
+			};
+		}
 	}
 }

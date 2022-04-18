@@ -11,9 +11,19 @@ namespace Hexagon.Items
 		Berry,
 		Apple,
 		Inspiration,
+		Theory,
+		Paper,
 		SpoiledFood,
 		ContaminatedWater,
 		Tea
+	}
+	
+	public enum ItemCategory
+	{
+		General = 1,
+		Consumable = 2,
+		Scientific = 3,
+		Cultural = 4
 	}
 	
 	/// <summary>
@@ -60,15 +70,7 @@ namespace Hexagon.Items
 		/// </summary>
 		public ItemCategory Category { get; protected set; } = ItemCategory.General;
 
-		public float Mass { get; protected set; } = 1.0f;
-
-		public enum ItemCategory
-		{
-			General = 1,
-			Consumable = 2,
-			Scientific = 3,
-			Cultural = 4
-		}
+		public float Volume { get; protected set; } = 1.0f;
 
 		public override string ToString()
 		{

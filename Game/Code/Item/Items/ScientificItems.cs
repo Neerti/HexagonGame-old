@@ -19,6 +19,7 @@ namespace Hexagon.Items
 			GameplayDescription = "Used in researching new technologies.";
 			FluffDescription = "An idea, crystallized in the mind.";
 			ItemID = ItemIDs.Inspiration;
+			Volume = 0f; // Ideas have no physical form.
 		}
 	}
 }

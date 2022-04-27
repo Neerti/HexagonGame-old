@@ -44,7 +44,12 @@ namespace Hexagon
 
 		private int _zoomIndex = 2;
 
-		public void SetZoomLevel(int newZoomIndex)
+		/// <summary>
+		/// Scales the map using choices inside of <see cref="_zoomLevels"/>, by index.
+		/// Input is automatically clamped and it cannot go out of bounds.
+		/// </summary>
+		/// <param name="newZoomIndex">Index of desired zoom level.</param>
+		private void SetZoomLevel(int newZoomIndex)
 		{
 			int oldZoomIndex = _zoomIndex;
 			_zoomIndex = Mathf.Clamp(newZoomIndex, 0, _zoomLevels.Count - 1);
@@ -54,37 +59,24 @@ namespace Hexagon
 			EmitSignal(nameof(MapZoomed), oldZoomIndex, _zoomIndex);
 		}
 
+		/// <summary>
+		/// Holds the relative coordinates for where the TileMap's origin would be on the actual map.
+		/// It acts as an offset that is adjusted when the map is moved, so that redrawing the map will reflect
+		/// the movement that occured.
+		/// </summary>
 		public Vector2 DisplayOriginMapPosition = Vector2.Zero;
-
-		private int UpdateTileResolutionX()
-		{
-			// TODO: Move this logic to the TileMap node itself?
-			var tileMap = GetNode<TileMap>("TileMap");
-			var tileWidth = tileMap.CellSize.x * Scale.x;
-		//	GD.Print("UpdateTileResolutionX: " + GetViewport().Size.x / tileMap.CellSize.x);
-			var max_horizontal_tiles = (int)(GetViewport().Size.x / tileWidth);
-			return max_horizontal_tiles;
-		}
-		
-		private int UpdateTileResolutionY()
-		{
-			var tileMap = GetNode<TileMap>("TileMap");
-			var tileHeight = tileMap.CellSize.y * Scale.y;
-		//	GD.Print("UpdateTileResolutionY: " + GetViewport().Size.y / tileMap.CellSize.y);
-			var max_vertical_tiles = (int)(GetViewport().Size.y / tileHeight);
-			return max_vertical_tiles;
-		}
 
 		/// <summary>
 		/// Recalculates the amount of tiles that should be rendered. Should be called if the game resolution
 		/// changes, e.g. the window is resized, or the map is zoomed in/out.
 		/// </summary>
-		public void UpdateTileResolutions()
+		private void UpdateTileResolutions()
 		{
-			TileResolutionX = UpdateTileResolutionX();
-			TileResolutionY = UpdateTileResolutionY();
-		//	GD.Print(TileResolutionX);
-		//	GD.Print(TileResolutionY);
+			var tileMap = GetNode<TileMap>("TileMap");
+			var tileWidth = tileMap.CellSize.x * Scale.x;
+			var tileHeight = tileMap.CellSize.y * Scale.y;
+			TileResolutionX = (int)(GetViewport().Size.x / tileWidth);
+			TileResolutionY = (int)(GetViewport().Size.y / tileHeight);
 
 			if (MapToDisplay is null)
 			{
@@ -98,21 +90,7 @@ namespace Hexagon
 			UpdateTileResolutions();
 		}
 
-		public void TestTileResolution()
-		{
-			var tileMap = GetNode<TileMap>("TileMap");
-			tileMap.Clear();
-			
-			for (var x = -_overscan; x < TileResolutionX + _overscan; x++)
-			{
-				for (var y = -_overscan; y < TileResolutionY + _overscan; y++)
-				{
-					tileMap.SetCell(x, y, 1);
-				}
-			}
-		}
-
-		public void RedrawMap()
+		private void RedrawMap()
 		{
 			var tileMap = GetNode<TileMap>("TileMap");
 			tileMap.Clear();
@@ -137,7 +115,7 @@ namespace Hexagon
 			
 		}
 
-		private readonly Godot.Collections.Dictionary<Hex.TileType, int> TileTypeToTileMap = new Godot.Collections.Dictionary<Hex.TileType, int>
+		private readonly Godot.Collections.Dictionary<Hex.TileType, int> _tileTypeToTileMap = new Godot.Collections.Dictionary<Hex.TileType, int>
 		{
 			{Hex.TileType.BASE, 0},
 			{Hex.TileType.GRASS, 1},
@@ -153,13 +131,7 @@ namespace Hexagon
 
 		private int TileTypeToTileMapInt(Hex.TileType type)
 		{
-			int result = 0;
-			if (TileTypeToTileMap.TryGetValue(type, out result))
-			{
-				return result;
-			}
-
-			return 0;
+			return _tileTypeToTileMap.TryGetValue(type, out var result) ? result : 0;
 		}
 
 
@@ -206,7 +178,11 @@ namespace Hexagon
 			}
 		}
 
-		public void SnapBack()
+		/// <summary>
+		/// When the map's position is shifted too far, it is instantly moved back, and an an offset is applied,
+		/// which creates the illusion of continuous movement.
+		/// </summary>
+		private void SnapBack()
 		{
 			var tileMap = GetNode<TileMap>("TileMap");
 			var cellWidth = tileMap.CellSize.x * Scale.x;
@@ -254,6 +230,7 @@ namespace Hexagon
 		{
 			GetTree().Root.Connect("size_changed", this, nameof(OnViewportSizeChanged));
 			SetZoomLevel(_zoomIndex);
+
 			UpdateTileResolutions();
 			// TODO
 			TestMap();
@@ -261,10 +238,13 @@ namespace Hexagon
 
 		}
 
-		public void TestMap()
+		private void TestMap()
 		{
 			var mapGen = new MapGenerator(2);
 			MapToDisplay = mapGen.GenerateNewMap(1024, 1024);
+
+			// Center the position.
+			DisplayOriginMapPosition = new Vector2(-512, -512);
 			
 			var img = MapToDisplay.GenerateMapImage();
 			img.SavePng("res://height_test.png");

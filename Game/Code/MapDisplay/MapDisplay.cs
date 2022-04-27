@@ -1,5 +1,5 @@
+using System.Collections.Generic;
 using Godot;
-using Godot.Collections;
 
 namespace Hexagon
 {
@@ -10,6 +10,9 @@ namespace Hexagon
 	/// </summary>
 	public class MapDisplay : Node2D
 	{
+		[Signal]
+		public delegate void MapZoomed(int oldIndex, int newIndex);
+		
 		/// <summary>
 		/// How many horizontal tiles can currently fit on the player's screen at once.
 		/// </summary>
@@ -34,22 +37,41 @@ namespace Hexagon
 
 		private const float MapMovementSpeed = 400f;
 
+		private readonly List<float> _zoomLevels = new List<float>
+		{
+			0.25f, 0.50f, 1.0f, 2.0f
+		};
+
+		private int _zoomIndex = 2;
+
+		public void SetZoomLevel(int newZoomIndex)
+		{
+			int oldZoomIndex = _zoomIndex;
+			_zoomIndex = Mathf.Clamp(newZoomIndex, 0, _zoomLevels.Count - 1);
+			Scale = new Vector2(_zoomLevels[_zoomIndex], _zoomLevels[_zoomIndex]);
+			if (oldZoomIndex == _zoomIndex) return;
+			UpdateTileResolutions();
+			EmitSignal(nameof(MapZoomed), oldZoomIndex, _zoomIndex);
+		}
+
 		public Vector2 DisplayOriginMapPosition = Vector2.Zero;
 
 		private int UpdateTileResolutionX()
 		{
 			// TODO: Move this logic to the TileMap node itself?
 			var tileMap = GetNode<TileMap>("TileMap");
-			GD.Print("UpdateTileResolutionX: " + GetViewport().Size.x / tileMap.CellSize.x);
-			var max_horizontal_tiles = (int)(GetViewport().Size.x / tileMap.CellSize.x);
+			var tileWidth = tileMap.CellSize.x * Scale.x;
+		//	GD.Print("UpdateTileResolutionX: " + GetViewport().Size.x / tileMap.CellSize.x);
+			var max_horizontal_tiles = (int)(GetViewport().Size.x / tileWidth);
 			return max_horizontal_tiles;
 		}
 		
 		private int UpdateTileResolutionY()
 		{
 			var tileMap = GetNode<TileMap>("TileMap");
-			GD.Print("UpdateTileResolutionY: " + GetViewport().Size.y / tileMap.CellSize.y);
-			var max_vertical_tiles = (int)(GetViewport().Size.y / tileMap.CellSize.y);
+			var tileHeight = tileMap.CellSize.y * Scale.y;
+		//	GD.Print("UpdateTileResolutionY: " + GetViewport().Size.y / tileMap.CellSize.y);
+			var max_vertical_tiles = (int)(GetViewport().Size.y / tileHeight);
 			return max_vertical_tiles;
 		}
 
@@ -61,8 +83,8 @@ namespace Hexagon
 		{
 			TileResolutionX = UpdateTileResolutionX();
 			TileResolutionY = UpdateTileResolutionY();
-			GD.Print(TileResolutionX);
-			GD.Print(TileResolutionY);
+		//	GD.Print(TileResolutionX);
+		//	GD.Print(TileResolutionY);
 
 			if (MapToDisplay is null)
 			{
@@ -97,9 +119,9 @@ namespace Hexagon
 
 			// `tilemap_[x|y]` refers to the grid shown on the player's screen using Godot's tilemap object.
 			// `map_[x|y]` refers to the actual map's data that the tilemap is supposed to represent.
-			for (int tilemap_x = 0; tilemap_x < TileResolutionX; tilemap_x++)
+			for (int tilemap_x = -_overscan; tilemap_x < TileResolutionX + _overscan; tilemap_x++)
 			{
-				for (int tilemap_y = 0; tilemap_y < TileResolutionY; tilemap_y++)
+				for (int tilemap_y = -_overscan; tilemap_y < TileResolutionY + _overscan; tilemap_y++)
 				{
 					var map_x = tilemap_x - (int)DisplayOriginMapPosition.x;
 					var map_y = tilemap_y - (int)DisplayOriginMapPosition.y;
@@ -115,15 +137,18 @@ namespace Hexagon
 			
 		}
 
-		private Dictionary<Hex.TileType, int> TileTypeToTileMap = new Dictionary<Hex.TileType, int>
+		private readonly Godot.Collections.Dictionary<Hex.TileType, int> TileTypeToTileMap = new Godot.Collections.Dictionary<Hex.TileType, int>
 		{
 			{Hex.TileType.BASE, 0},
 			{Hex.TileType.GRASS, 1},
 			{Hex.TileType.DEEP_SALT_WATER, 2},
-			{Hex.TileType.SHALLOW_SALT_WATER, 2},
+			{Hex.TileType.SHALLOW_SALT_WATER, 6},
 			{Hex.TileType.ROCK, 3},
 			{Hex.TileType.BEACH_SAND, 4},
-			{Hex.TileType.FOREST, 5}
+			{Hex.TileType.FOREST, 5},
+			{Hex.TileType.SNOW, 7},
+			{Hex.TileType.SHALLOW_FRESH_WATER, 8},
+			{Hex.TileType.DEEP_FRESH_WATER, 9}
 		};
 
 		private int TileTypeToTileMapInt(Hex.TileType type)
@@ -141,7 +166,7 @@ namespace Hexagon
 		public override void _Process(float delta)
 		{
 			var direction = new Vector2();
-			var speed = MapMovementSpeed;
+			var speed = MapMovementSpeed / Scale.x;
 			if(Input.IsActionPressed("move_map_up"))
 			{
 				direction -= Vector2.Up;
@@ -168,12 +193,24 @@ namespace Hexagon
 			Position += (direction.Normalized() * speed * delta);
 			SnapBack();
 		}
+		
+		public override void _Input(InputEvent @event)
+		{
+			if(@event.IsActionReleased("zoom_map_out"))
+			{
+				SetZoomLevel(_zoomIndex - 1);
+			}
+			else if (@event.IsActionReleased("zoom_map_in"))
+			{
+				SetZoomLevel(_zoomIndex + 1);
+			}
+		}
 
 		public void SnapBack()
 		{
 			var tileMap = GetNode<TileMap>("TileMap");
-			var cellWidth = tileMap.CellSize.x;
-			var cellHeight = tileMap.CellSize.y;
+			var cellWidth = tileMap.CellSize.x * Scale.x;
+			var cellHeight = tileMap.CellSize.y * Scale.y;
 			
 			// If this is set to true, the map is redrawn at the end.
 			var moved = false;
@@ -216,23 +253,25 @@ namespace Hexagon
 		public override void _Ready()
 		{
 			GetTree().Root.Connect("size_changed", this, nameof(OnViewportSizeChanged));
+			SetZoomLevel(_zoomIndex);
 			UpdateTileResolutions();
 			// TODO
 			TestMap();
 			RedrawMap();
-
-
-
-			//	var MapGen = new MapGenerator(2);
-			//	var grid = MapGen.GenerateNewMap(1024, 1024);
-			//	var tileMap = GetNode<TileMap>("TileMap");
 
 		}
 
 		public void TestMap()
 		{
 			var mapGen = new MapGenerator(2);
-			MapToDisplay = mapGen.GenerateNewMap(256, 256);
+			MapToDisplay = mapGen.GenerateNewMap(1024, 1024);
+			
+			var img = MapToDisplay.GenerateMapImage();
+			img.SavePng("res://height_test.png");
+			img = MapToDisplay.GenerateHeightNoiseImage();
+			img.SavePng("res://height_noise.png");
+			img = MapToDisplay.GenerateHeatMap();
+			img.SavePng("res://heat_map.png");
 		}
 	}
 }

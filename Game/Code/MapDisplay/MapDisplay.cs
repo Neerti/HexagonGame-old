@@ -1,24 +1,238 @@
 using Godot;
+using Godot.Collections;
 
 namespace Hexagon
 {
+	/// <summary>
+	/// The MapDisplay object is used to visually represent the contents of a <see cref="HexGrid"/>.
+	/// Since the actual grid might have hundreds or thousands of tiles, rendering each tile at once would be a bad
+	/// idea. Instead, MapDisplay only shows a limited number of tiles at a time
+	/// </summary>
 	public class MapDisplay : Node2D
 	{
-		public override void _Ready()
-		{
-			var MapGen = new MapGenerator(2);
-			var grid = MapGen.GenerateNewMap(1024, 1024);
-			var tileMap = GetNode<TileMap>("TileMap");
+		/// <summary>
+		/// How many horizontal tiles can currently fit on the player's screen at once.
+		/// </summary>
+		public int TileResolutionX { get; private set; }
 
-			for (int x = 0; x < grid.SizeX; x++)
+		/// <summary>
+		/// How many vertical tiles can currently fit on the player's screen at once.
+		/// </summary>
+		public int TileResolutionY { get; private set; }
+		
+		/// <summary>
+		/// Amount of extra tiles to render beyond what the player should be able to see. This is done to avoid tiles
+		/// from 'popping in' when the map is being moved. This value applies the extra tiles on all four sides
+		/// at the same time.
+		/// </summary>
+		readonly int _overscan = 3;
+
+		/// <summary>
+		/// Holds the <see cref="HexGrid"/> that is being displayed.
+		/// </summary>
+		public HexGrid MapToDisplay;
+
+		private const float MapMovementSpeed = 400f;
+
+		public Vector2 DisplayOriginMapPosition = Vector2.Zero;
+
+		private int UpdateTileResolutionX()
+		{
+			// TODO: Move this logic to the TileMap node itself?
+			var tileMap = GetNode<TileMap>("TileMap");
+			GD.Print("UpdateTileResolutionX: " + GetViewport().Size.x / tileMap.CellSize.x);
+			var max_horizontal_tiles = (int)(GetViewport().Size.x / tileMap.CellSize.x);
+			return max_horizontal_tiles;
+		}
+		
+		private int UpdateTileResolutionY()
+		{
+			var tileMap = GetNode<TileMap>("TileMap");
+			GD.Print("UpdateTileResolutionY: " + GetViewport().Size.y / tileMap.CellSize.y);
+			var max_vertical_tiles = (int)(GetViewport().Size.y / tileMap.CellSize.y);
+			return max_vertical_tiles;
+		}
+
+		/// <summary>
+		/// Recalculates the amount of tiles that should be rendered. Should be called if the game resolution
+		/// changes, e.g. the window is resized, or the map is zoomed in/out.
+		/// </summary>
+		public void UpdateTileResolutions()
+		{
+			TileResolutionX = UpdateTileResolutionX();
+			TileResolutionY = UpdateTileResolutionY();
+			GD.Print(TileResolutionX);
+			GD.Print(TileResolutionY);
+
+			if (MapToDisplay is null)
 			{
-				for (int y = 0; y < grid.SizeY; y++)
+				return;
+			}
+			RedrawMap();
+		}
+
+		public void OnViewportSizeChanged()
+		{
+			UpdateTileResolutions();
+		}
+
+		public void TestTileResolution()
+		{
+			var tileMap = GetNode<TileMap>("TileMap");
+			tileMap.Clear();
+			
+			for (var x = -_overscan; x < TileResolutionX + _overscan; x++)
+			{
+				for (var y = -_overscan; y < TileResolutionY + _overscan; y++)
 				{
 					tileMap.SetCell(x, y, 1);
-					var hex = tileMap.GetCell(x, y);
-					
 				}
 			}
+		}
+
+		public void RedrawMap()
+		{
+			var tileMap = GetNode<TileMap>("TileMap");
+			tileMap.Clear();
+
+			// `tilemap_[x|y]` refers to the grid shown on the player's screen using Godot's tilemap object.
+			// `map_[x|y]` refers to the actual map's data that the tilemap is supposed to represent.
+			for (int tilemap_x = 0; tilemap_x < TileResolutionX; tilemap_x++)
+			{
+				for (int tilemap_y = 0; tilemap_y < TileResolutionY; tilemap_y++)
+				{
+					var map_x = tilemap_x - (int)DisplayOriginMapPosition.x;
+					var map_y = tilemap_y - (int)DisplayOriginMapPosition.y;
+
+					// Don't draw any tiles if no data exists.
+					// Later on it would be nice to implement wrap around for the east and west sides.
+					if (!MapToDisplay.HasHex(map_x, map_y)) continue;
+
+					var tile = MapToDisplay.GetHex(map_x, map_y);
+					tileMap.SetCell(tilemap_x, tilemap_y, TileTypeToTileMapInt(tile.tile_type));
+				}
+			}
+			
+		}
+
+		private Dictionary<Hex.TileType, int> TileTypeToTileMap = new Dictionary<Hex.TileType, int>
+		{
+			{Hex.TileType.BASE, 0},
+			{Hex.TileType.GRASS, 1},
+			{Hex.TileType.DEEP_SALT_WATER, 2},
+			{Hex.TileType.SHALLOW_SALT_WATER, 2},
+			{Hex.TileType.ROCK, 3},
+			{Hex.TileType.BEACH_SAND, 4},
+			{Hex.TileType.FOREST, 5}
+		};
+
+		private int TileTypeToTileMapInt(Hex.TileType type)
+		{
+			int result = 0;
+			if (TileTypeToTileMap.TryGetValue(type, out result))
+			{
+				return result;
+			}
+
+			return 0;
+		}
+
+
+		public override void _Process(float delta)
+		{
+			var direction = new Vector2();
+			var speed = MapMovementSpeed;
+			if(Input.IsActionPressed("move_map_up"))
+			{
+				direction -= Vector2.Up;
+			}
+			if (Input.IsActionPressed("move_map_down"))
+			{
+				direction -= Vector2.Down;
+			}
+			if (Input.IsActionPressed("move_map_left"))
+			{
+				direction -= Vector2.Left;
+			}
+			if (Input.IsActionPressed("move_map_right"))
+			{
+				direction -= Vector2.Right;
+			}
+
+			// Holding shift makes the map move faster.
+			if (Input.IsPhysicalKeyPressed((int) KeyList.Shift))
+			{
+				speed *= 2;
+			}
+			
+			Position += (direction.Normalized() * speed * delta);
+			SnapBack();
+		}
+
+		public void SnapBack()
+		{
+			var tileMap = GetNode<TileMap>("TileMap");
+			var cellWidth = tileMap.CellSize.x;
+			var cellHeight = tileMap.CellSize.y;
+			
+			// If this is set to true, the map is redrawn at the end.
+			var moved = false;
+			
+			// Because every other row is offset by half, it needs to snap back after two rows and not one.
+			if (Position.x > cellWidth * 2)
+			{
+				Position = new Vector2(0, Position.y);
+				DisplayOriginMapPosition -= Vector2.Left * 2;
+				moved = true;
+			}
+
+			if (Position.x < -cellWidth * 2)
+			{
+				Position = new Vector2(0, Position.y);
+				DisplayOriginMapPosition -= Vector2.Right * 2;
+				moved = true;
+			}
+
+			if (Position.y > cellHeight)
+			{
+				Position = new Vector2(Position.x, 0);
+				DisplayOriginMapPosition -= Vector2.Up;
+				moved = true;
+			}
+			
+			if (Position.y < -cellHeight)
+			{
+				Position = new Vector2(Position.x, 0);
+				DisplayOriginMapPosition -= Vector2.Down;
+				moved = true;
+			}
+
+			if (moved)
+			{
+				RedrawMap();
+			}
+		}
+
+		public override void _Ready()
+		{
+			GetTree().Root.Connect("size_changed", this, nameof(OnViewportSizeChanged));
+			UpdateTileResolutions();
+			// TODO
+			TestMap();
+			RedrawMap();
+
+
+
+			//	var MapGen = new MapGenerator(2);
+			//	var grid = MapGen.GenerateNewMap(1024, 1024);
+			//	var tileMap = GetNode<TileMap>("TileMap");
+
+		}
+
+		public void TestMap()
+		{
+			var mapGen = new MapGenerator(2);
+			MapToDisplay = mapGen.GenerateNewMap(256, 256);
 		}
 	}
 }

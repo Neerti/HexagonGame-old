@@ -92,6 +92,9 @@ namespace Hexagon.Research.TechTrees
 		Base,
 		Speech,
 		Language,
+		Writing,
+		
+		// Test nodes.
 		TestRoot,
 		TestA,
 		TestB,

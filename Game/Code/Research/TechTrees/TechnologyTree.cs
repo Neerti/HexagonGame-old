@@ -70,7 +70,19 @@ namespace Hexagon.Research.TechTrees
 			return GetAllParentsOfNode(testedNode).All(node => !node.RootNode);
 		}
 
+		public List<TechnologyNode> GetUnreachableNodes()
+		{
+			var unreachableNodes = new List<TechnologyNode>();
+			foreach (var pair in Nodes)
+			{
+				if (IsNodeUnreachable(pair.Value))
+				{
+					unreachableNodes.Add(pair.Value);
+				}
+			}
 
+			return unreachableNodes;
+		}
 
 
 		public override string ToString()

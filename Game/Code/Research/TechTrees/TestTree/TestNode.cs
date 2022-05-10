@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Hexagon.Research.TechTrees
+namespace Hexagon.Research.TechTrees.TestTree
 {
 	/// <summary>
 	/// Generic testing node. Subtypes of this will be automatically 

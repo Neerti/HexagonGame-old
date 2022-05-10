@@ -5,22 +5,21 @@ using Hexagon.Populations;
 
 namespace Hexagon.Settlements
 {
+	/// <summary>
+	/// Settlements tie together the people, buildings, and resources of a particular geographic location on the map.
+	/// They exist to simplify the simulation and avoid players having to do excessive micromanaging, by confining
+	/// resource and population logic into discrete geographical points as opposed to a continuous model based
+	/// on proximity.
+	/// </summary>
 	public class Settlement : Node
 	{
-		public List<Person> Population;
+		public List<Person> People;
 
-		public void SimulateConsumption()
-		{
-			var total_food_need = 0f;
-			var total_water_need = 0f;
+		public List<Building> Buildings;
 
-			foreach (var person in Population)
-			{
-				total_food_need += person.GetFoodRequirement();
-				total_water_need += person.GetWaterRequirement();
-			}
-		}
-		
+
+
+
 	}
 }
 

@@ -343,8 +343,8 @@ align = 1
 
 [node name="VBoxContainer11" type="VBoxContainer" parent="MarginContainer/Panel/MarginContainer/HBoxContainer"]
 visible = false
-margin_left = 816.0
-margin_right = 893.0
+margin_left = 952.0
+margin_right = 1029.0
 margin_bottom = 82.0
 alignment = 1
 

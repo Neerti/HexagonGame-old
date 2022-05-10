@@ -35,42 +35,42 @@ namespace Hexagon.Items
 		/// <summary>
 		/// Internal identification enum for items. 
 		/// </summary>
-		public ItemIDs ItemID { get; protected set; } = ItemIDs.Base;
+		protected ItemIDs ItemID { get; set; } = ItemIDs.Base;
 
 		/// <summary>
 		/// The name of the <see cref="Item"/>, displayed in UIs, generally in singular form.
 		/// </summary>
-		public string DisplayName { get; protected set; }
+		protected string DisplayName { get; set; }
 		
 		/// <summary>
 		/// The name of multiple <see cref="Item"/>s, displayed in UIs. If empty, <see cref="DisplayName"/> is
 		/// used instead.
 		/// </summary>
-		public string DisplayNamePlural { get; protected set; }
+		protected string DisplayNamePlural { get; set; }
 
 		/// <summary>
 		/// Describes what the <see cref="Item"/> might be used for in gameplay.
 		/// </summary>
-		public string GameplayDescription { get; protected set; }
+		protected string GameplayDescription { get; set; }
 
 		/// <summary>
 		/// A short description about the <see cref="Item"/>, to add flavor.
 		/// </summary>
-		public string FluffDescription { get; protected set; }
+		protected string FluffDescription { get; set; }
 
 		/// <summary>
 		/// Color that should be used to display this <see cref="Item"/>'s name.
 		/// </summary>
-		public Color DisplayColor { get; protected set; } = Colors.White;
+		protected Color DisplayColor { get; set; } = Colors.White;
 
 		// TODO sprite here.
 
 		/// <summary>
 		/// Used to categorize different kinds of <see cref="Item"/>s together.
 		/// </summary>
-		public ItemCategory Category { get; protected set; } = ItemCategory.General;
+		protected ItemCategory Category { get; set; } = ItemCategory.General;
 
-		public float Volume { get; protected set; } = 1.0f;
+		protected float Volume { get; set; } = 1.0f;
 
 		public override string ToString()
 		{

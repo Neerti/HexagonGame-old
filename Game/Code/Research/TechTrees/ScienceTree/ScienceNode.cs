@@ -65,7 +65,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			TechID = TechIDs.BoneWorking;
 			DisplayName = "Bone Working";
 			Description = "Bone is a fairly hard material that can occasionally be found while looking for food, " +
-			              "whether from forging cadavers or hunting animals. Unlike stone or wood, it comes in " +
+			              "whether from scavenging cadavers, or hunting animals. Unlike stone or wood, it comes in " +
 			              "a number of shapes that might be desirable.";
 			ParentTechIDs.Add(TechIDs.StoneKnapping );
 		}
@@ -79,7 +79,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			DisplayName = "Woodcutting";
 			Description = "Sharp stones held in hand makes it possible to fell trees with thin trunks. " +
 			              "This allows for the deliberate harvesting of wood, without needing to forage for " +
-			              "twigs or dead trees.";
+			              "twigs, or hope to find a dead tree that's already on the ground.";
 			ParentTechIDs.Add(TechIDs.StoneKnapping );
 		}
 	}

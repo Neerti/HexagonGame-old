@@ -46,6 +46,20 @@ namespace Hexagon.Tests
 			
 			Assert.Empty(tree.GetUnreachableNodes());
 		}
+		
+		/// <summary>
+		/// Tests all trees in the code for any nodes that have themselves as a parent.
+		/// </summary>
+		/// <param name="nodeType">Which node type to use for building the tree.</param>
+		[Theory]
+		[InlineData(typeof(ScienceNode))]
+		[InlineData(typeof(TestNode))]
+		public void TechnologyTrees_GetSelfReferencingNodes_ShouldBeEmpty(Type nodeType)
+		{
+			var tree = TechnologyTreeBuilder.MakeTree(nodeType);
+			
+			Assert.Empty(tree.GetSelfReferencingNodes());
+		}
 
 	}
 }

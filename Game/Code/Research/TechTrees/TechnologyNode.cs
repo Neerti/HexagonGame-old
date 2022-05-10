@@ -90,15 +90,25 @@ namespace Hexagon.Research.TechTrees
 	public enum TechIDs
 	{
 		Base,
-		Speech,
-		Language,
-		Writing,
-		
 		// Test nodes.
 		TestRoot,
 		TestA,
 		TestB,
 		TestAAndB,
-		TestA2
+		TestA2,
+		// Science nodes.
+		Speech,
+		Language,
+		Writing,
+		Foraging,
+		StoneKnapping,
+		BoneWorking,
+		Woodcutting,
+		ToolMaking,
+		Digging,
+		Mining,
+		Firemaking,
+		Cooking,
+		Ceramics
 	}
 }

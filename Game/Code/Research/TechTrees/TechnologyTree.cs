@@ -84,6 +84,20 @@ namespace Hexagon.Research.TechTrees
 			return unreachableNodes;
 		}
 
+		public List<TechnologyNode> GetSelfReferencingNodes()
+		{
+			var loopingNodes = new List<TechnologyNode>();
+			foreach (var pair in Nodes)
+			{
+				if (pair.Value.ParentTechIDs.Contains(pair.Value.TechID))
+				{
+					loopingNodes.Add(pair.Value);
+				}
+			}
+
+			return loopingNodes;
+		}
+
 
 		public override string ToString()
 		{

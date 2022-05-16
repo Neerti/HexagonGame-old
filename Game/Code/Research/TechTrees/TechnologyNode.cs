@@ -33,6 +33,11 @@ namespace Hexagon.Research.TechTrees
 		public string Description { get; protected set; }
 		
 		/// <summary>
+		/// A string that informs the player what unlocking this node will do mechanically.
+		/// </summary>
+		public string GameplayEffects { get; protected set; }
+		
+		/// <summary>
 		/// Optional technobabble and lore goes here. Displayed to the player in the UI.
 		/// </summary>
 		public string Fluff { get; protected set; }
@@ -68,6 +73,12 @@ namespace Hexagon.Research.TechTrees
 		/// The list is built at runtime by the tech tree object.
 		/// </summary>
 		public List<TechnologyNode> Children { get; protected set; } = new List<TechnologyNode>();
+
+		/// <summary>
+		/// The maximum number of steps that could be taken to go from this node to a root node.
+		/// This is calculated at runtime and is used to help visualize the tech tree.
+		/// </summary>
+		public int FarthestDistanceFromRoot = 0;
 
 		/// <summary>
 		/// Connects this node to the input node in two directions. 
@@ -107,8 +118,11 @@ namespace Hexagon.Research.TechTrees
 		ToolMaking,
 		Digging,
 		Mining,
-		Firemaking,
+		Burial,
+		FireMaking,
 		Cooking,
-		Ceramics
+		Ceramics,
+		Stockpiling,
+		Smelting
 	}
 }

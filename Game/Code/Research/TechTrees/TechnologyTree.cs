@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,6 +23,8 @@ namespace Hexagon.Research.TechTrees
 		/// Dictionary of all nodes in the tree, indexed by their type.
 		/// </summary>
 		public Dictionary<TechIDs, TechnologyNode> Nodes = new Dictionary<TechIDs, TechnologyNode>();
+
+		public List<TechnologyNode> RootNodes = new List<TechnologyNode>();
 
 		public TechnologyNode GetNode(TechIDs id)
 		{
@@ -51,6 +54,55 @@ namespace Hexagon.Research.TechTrees
 				return RecursiveParents(parent, parentsFound);
 			}
 			return parentsFound;
+		}
+		
+		public List<TechnologyNode> GetAllChildrenOfNode(TechnologyNode startingNode)
+		{
+			return RecursiveChildren(startingNode, new List<TechnologyNode>());
+		}
+		
+		List<TechnologyNode> RecursiveChildren(TechnologyNode startingNode, List<TechnologyNode> childrenFound)
+		{
+			childrenFound.AddRange(startingNode.Parents);
+			foreach (var parent in startingNode.Parents)
+			{
+				return RecursiveChildren(parent, childrenFound);
+			}
+			return childrenFound;
+		}
+
+		/// <summary>
+		/// Calculates the number of steps between two nodes in the tree.
+		/// </summary>
+		/// <param name="start"></param>
+		/// <param name="end"></param>
+		/// <returns></returns>
+		public int DistanceBetweenNodes(TechnologyNode start, TechnologyNode end)
+		{
+			// Looking upwards.
+			if (GetAllParentsOfNode(start).Contains(end))
+			{
+				return RecursiveParentDistance(start, end);
+			}
+			// Otherwise we look downwards.
+			if (GetAllChildrenOfNode(start).Contains(end))
+			{
+				throw new NotImplementedException();
+			}
+			// Nodes can't be reached.
+			return -1;
+		}
+
+		private int RecursiveParentDistance(TechnologyNode currentNode, TechnologyNode targetNode, int currentDistance = 0)
+		{
+			if (currentNode != targetNode)
+			{
+				foreach (var parent in currentNode.Parents)
+				{
+					return RecursiveParentDistance(parent, targetNode, ++currentDistance);
+				}
+			}
+			return currentDistance;
 		}
 		
 		/// <summary>

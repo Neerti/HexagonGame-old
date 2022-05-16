@@ -1,0 +1,17 @@
+[gd_scene format=2]
+
+[node name="TechNodeConnectionRow" type="HBoxContainer"]
+margin_right = 193.0
+margin_bottom = 20.0
+
+[node name="ParentButton" type="Button" parent="."]
+margin_right = 91.0
+margin_bottom = 20.0
+text = "Parent Node"
+
+[node name="ChildButton" type="Button" parent="."]
+margin_left = 111.0
+margin_right = 193.0
+margin_bottom = 20.0
+size_flags_horizontal = 10
+text = "Child Node"

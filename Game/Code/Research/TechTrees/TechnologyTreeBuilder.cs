@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Godot;
 
 namespace Hexagon.Research.TechTrees
 {
@@ -27,6 +28,10 @@ namespace Hexagon.Research.TechTrees
 				if (newNode.TechID == TechIDs.Base)
 					continue;
 				tree.Nodes.Add(newNode.TechID, newNode);
+				if (newNode.RootNode)
+				{
+					tree.RootNodes.Add(newNode);
+				}
 			}
 			
 			// Connect the nodes together.
@@ -35,6 +40,28 @@ namespace Hexagon.Research.TechTrees
 				foreach (var prerequisite in entry.Value.ParentTechIDs.Select(type => tree.Nodes[type]))
 				{
 					entry.Value.LinkToParent(prerequisite);
+				}
+			}
+			
+			// Calculate the nodes' distances from the roots.
+			foreach (var node in tree.Nodes.Values)
+			{
+				if (!node.RootNode) { continue; }
+				
+				foreach (var other_node in tree.Nodes.Values)
+				{
+					if(other_node.Parents.Count == 0) {continue;}
+
+					foreach (var parent_of_other_node in other_node.Parents)
+					{
+						var dist = Mathf.Max(tree.DistanceBetweenNodes(parent_of_other_node, node) + 1, 1);
+						GD.Print(other_node + " is " + dist + " distance away from " + node);
+						if (dist > other_node.FarthestDistanceFromRoot)
+						{
+							other_node.FarthestDistanceFromRoot = dist;
+						}
+					}
+
 				}
 			}
 

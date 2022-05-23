@@ -8,7 +8,7 @@ namespace Hexagon.UI.TechTreeDisplay
 	public class TechUITree : GraphEdit
 	{
 		private Dictionary<TechnologyNode, TechUINode> TechUINodes = new Dictionary<TechnologyNode, TechUINode>();
-		private const int NodeHorizontalSpacing = 400;
+		private const int NodeHorizontalSpacing = 300;
 		private const int NodeVerticalSpacing = 200;
 		
 		public override void _Ready()
@@ -28,12 +28,15 @@ namespace Hexagon.UI.TechTreeDisplay
 				var techNode = (TechUINode)packedNode.Instance();
 				techNode.DisplayNode(id);
 				AddChild(techNode);
+				// GraphEdit seems to really insist on this being Pass.
 				techNode.MouseFilter = MouseFilterEnum.Stop;
 				
 				TechUINodes.Add(Singleton.ScienceTechTree.Nodes[id], techNode);
 			}
 
 			ArrangeTree();
+
+			ScrollOffset = new Vector2(-20, -20);
 
 		}
 
@@ -56,11 +59,6 @@ namespace Hexagon.UI.TechTreeDisplay
 			foreach (var rootNode in Singleton.ScienceTechTree.RootNodes)
 			{
 				var sortedNodes = DepthFirstSort(rootNode);
-
-				for (int i = 0; i < sortedNodes.Count; i++)
-				{
-					GD.Print(i + " | " + sortedNodes[i]);
-				}
 
 				var j = 0;
 				foreach (var node in sortedNodes)

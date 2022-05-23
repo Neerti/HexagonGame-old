@@ -32,11 +32,15 @@ namespace Hexagon.UI.TechTreeDisplay
 			var shortDescLabel = GetNode<Label>("ShortDescriptionLabel");
 			shortDescLabel.Text = NodeToDisplay.ShortDescription;
 			
+			// Description.
+			// TODO: Port wordwrap function from prior Autonomy project.
+			//HintTooltip = NodeToDisplay.Description;
+			
 			// Connections.
 			SetSlotEnabledLeft(0, NodeToDisplay.Parents.Count > 0);
 			SetSlotEnabledRight(0, NodeToDisplay.Children.Count > 0);
 			
-			var maxLength = Mathf.Max(NodeToDisplay.Parents.Count, NodeToDisplay.Children.Count);
+			/*var maxLength = Mathf.Max(NodeToDisplay.Parents.Count, NodeToDisplay.Children.Count);
 			var packedRow =
 				(PackedScene) ResourceLoader.Load("res://Code/UI/TechTreeDisplay/TechNodeConnectionRow.tscn");
 			for (var i = 0; i < maxLength; i++)
@@ -64,15 +68,15 @@ namespace Hexagon.UI.TechTreeDisplay
 				}
 					
 				AddChild(row);
-			}
+			}*/
 		}
 
 		
 		public override void _Ready()
 		{
-
 			// Has a tendency to get reverted in the editor.
 			MouseFilter = MouseFilterEnum.Stop;
+			
 		}
 
 		public override void _GuiInput(InputEvent @event)
@@ -85,7 +89,9 @@ namespace Hexagon.UI.TechTreeDisplay
 					GD.Print(NodeToDisplay.Description);
 				}
 			}
+			
 		}
+		
 	}	
 }
 

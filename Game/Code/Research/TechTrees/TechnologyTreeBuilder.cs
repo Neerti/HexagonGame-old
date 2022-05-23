@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Reflection;
 using Godot;
+using Hexagon.Globals;
 
 namespace Hexagon.Research.TechTrees
 {
@@ -55,7 +56,16 @@ namespace Hexagon.Research.TechTrees
 					foreach (var parent_of_other_node in other_node.Parents)
 					{
 						var dist = Mathf.Max(tree.DistanceBetweenNodes(parent_of_other_node, node) + 1, 1);
-						//GD.Print(other_node + " is " + dist + " distance away from " + node);
+						if (other_node.TechID == TechIDs.GoldWorking)
+						{
+							GD.Print(other_node + " is " + dist + " distance away from " + node);
+							var thing = tree.GetAllParentsOfNode(other_node);
+							foreach (var a in thing)
+							{
+								GD.Print(a);
+							}
+						}
+						
 						if (dist > other_node.FarthestDistanceFromRoot)
 						{
 							other_node.FarthestDistanceFromRoot = dist;

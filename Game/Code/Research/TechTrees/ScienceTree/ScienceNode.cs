@@ -72,12 +72,33 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 		}
 	}
 	
+	public class Sewing : ScienceNode
+	{
+		public Sewing()
+		{
+			TechID = TechIDs.Sewing;
+			DisplayName = "Sewing";
+			ParentTechIDs.Add(TechIDs.BoneWorking );
+		}
+	}
+	
+	public class LeatherWorking : ScienceNode
+	{
+		public LeatherWorking()
+		{
+			TechID = TechIDs.LeatherWorking;
+			DisplayName = "Leather Working";
+			ParentTechIDs.Add(TechIDs.Sewing );
+		}
+	}
+	
 	public class Woodcutting : ScienceNode
 	{
 		public Woodcutting()
 		{
 			TechID = TechIDs.Woodcutting;
 			DisplayName = "Woodcutting";
+			ShortDescription = "Easier access to wood.";
 			Description = "Sharp stones held in hand makes it possible to fell trees with thin trunks. " +
 			              "This allows for the deliberate harvesting of wood, without needing to forage for " +
 			              "twigs, or hope to find a dead tree that's already on the ground.";
@@ -149,6 +170,109 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 		}
 	}
 	
+	public class Prospecting : ScienceNode
+	{
+		public Prospecting()
+		{
+			TechID = TechIDs.Prospecting;
+			DisplayName = "Prospecting";
+			ShortDescription = "Know where to dig.";
+			ParentTechIDs.Add(TechIDs.Mining);
+		}
+	}
+	
+	public class Quarrying : ScienceNode
+	{
+		public Quarrying()
+		{
+			TechID = TechIDs.Quarrying;
+			DisplayName = "Quarrying";
+			ShortDescription = "Rock and stone.";
+			ParentTechIDs.Add(TechIDs.Mining);
+		}
+	}
+	
+	public class Stonemasonry : ScienceNode
+	{
+		public Stonemasonry()
+		{
+			TechID = TechIDs.Stonemasonry;
+			DisplayName = "Stonemasonry";
+			ShortDescription = "Durable structures and sculptures made from cut stone.";
+			ParentTechIDs.Add(TechIDs.Quarrying);
+		}
+	}
+	
+	public class Building : ScienceNode
+	{
+		public Building()
+		{
+			TechID = TechIDs.Building;
+			DisplayName = "Building";
+			ShortDescription = "Long-term structures.";
+			ParentTechIDs.Add(TechIDs.ToolMaking );
+		}
+	}
+	
+	public class Carpentry : ScienceNode
+	{
+		public Carpentry()
+		{
+			TechID = TechIDs.Carpentry;
+			DisplayName = "Carpentry";
+			ShortDescription = "Shaping wood into more useful forms.";
+			ParentTechIDs.Add(TechIDs.Building );
+		}
+	}
+	
+	public class Construction : ScienceNode
+	{
+		public Construction()
+		{
+			TechID = TechIDs.Construction;
+			DisplayName = "Construction";
+			ShortDescription = "Better buildings from better materials.";
+			ParentTechIDs.Add(TechIDs.Carpentry );
+			ParentTechIDs.Add(TechIDs.Stonemasonry );
+		}
+	}
+
+	public class Carving : ScienceNode
+	{
+		public Carving()
+		{
+			TechID = TechIDs.Carving;
+			DisplayName = "Carving";
+			ShortDescription = "Ancient art.";
+			ParentTechIDs.Add(TechIDs.StoneKnapping );
+		}
+	}
+	
+	public class GemCutting : ScienceNode
+	{
+		public GemCutting()
+		{
+			TechID = TechIDs.GemCutting;
+			DisplayName = "Gem Cutting";
+			ShortDescription = "Shiny and pretty.";
+			ParentTechIDs.Add(TechIDs.Carving );
+		}
+	}
+	
+
+	
+	public class WellDigging : ScienceNode
+	{
+		public WellDigging()
+		{
+			TechID = TechIDs.WellDigging;
+			DisplayName = "Well Digging";
+			ShortDescription = "A new source of water.";
+			ParentTechIDs.Add(TechIDs.Digging );
+			ParentTechIDs.Add(TechIDs.Building );
+		}
+	}
+	
 	public class FireMaking : ScienceNode
 	{
 		public FireMaking()
@@ -208,6 +332,30 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			DisplayName = "Smelting";
 			ParentTechIDs.Add(TechIDs.Cooking);
 			ParentTechIDs.Add(TechIDs.Mining);
+		}
+	}
+	
+	public class GoldWorking : ScienceNode
+	{
+		public GoldWorking()
+		{
+			TechID = TechIDs.GoldWorking;
+			DisplayName = "Gold Working";
+			ShortDescription = "Soft, but shiny.";
+			ParentTechIDs.Add(TechIDs.Smelting);
+		}
+	}
+	
+	public class Monuments : ScienceNode
+	{
+		public Monuments()
+		{
+			TechID = TechIDs.Monuments;
+			DisplayName = "Monuments";
+			ShortDescription = "Awe-inspiring structures to commemorate something extraordinary.";
+			ParentTechIDs.Add(TechIDs.Construction );
+			ParentTechIDs.Add(TechIDs.GemCutting );
+			ParentTechIDs.Add(TechIDs.GoldWorking );
 		}
 	}
 }

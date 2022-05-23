@@ -165,9 +165,16 @@ namespace Hexagon
 			Position += (direction.Normalized() * speed * delta);
 			SnapBack();
 		}
-		
+
 		public override void _Input(InputEvent @event)
 		{
+			if (@event is InputEventMouseMotion) return;
+			GD.Print(@event.AsText());
+		}
+
+		public override void _UnhandledInput(InputEvent @event)
+		{
+			//GD.Print(@event.AsText());
 			if(@event.IsActionReleased("zoom_map_out"))
 			{
 				SetZoomLevel(_zoomIndex - 1);

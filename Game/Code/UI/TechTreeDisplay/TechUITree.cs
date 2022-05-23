@@ -64,7 +64,6 @@ namespace Hexagon.UI.TechTreeDisplay
 				foreach (var node in sortedNodes)
 				{
 					distances[node] = int.MinValue;
-					GD.Print(node);
 				}
 
 				distances[rootNode] = 0;
@@ -82,8 +81,6 @@ namespace Hexagon.UI.TechTreeDisplay
 
 				foreach (var thing in distances)
 				{
-					GD.Print(thing);
-					
 					var displayNode = TechUINodes[thing.Key];
 					displayNode.Offset = new Vector2(thing.Value * NodeHorizontalSpacing, displayNode.Offset.y);
 				}
@@ -109,22 +106,8 @@ namespace Hexagon.UI.TechTreeDisplay
 
 					j++;
 				}
-
-				var result = TopologicalSort(rootNode, new Stack<TechnologyNode>(),
-					new Dictionary<TechnologyNode, bool>());
-				GD.Print("TopologicalSort results;");
-				foreach (var thing in result)
-				{
-					GD.Print(thing);
-				}
-				
 				currentRow++;
-
-
-
 			}
-			
-			
 		}
 
 		private List<TechnologyNode> DepthFirstSort(TechnologyNode rootNode)

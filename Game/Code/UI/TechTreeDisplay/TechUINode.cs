@@ -72,7 +72,7 @@ namespace Hexagon.UI.TechTreeDisplay
 		{
 
 			// Has a tendency to get reverted in the editor.
-			MouseFilter = MouseFilterEnum.Pass;
+			MouseFilter = MouseFilterEnum.Stop;
 		}
 
 		public override void _GuiInput(InputEvent @event)

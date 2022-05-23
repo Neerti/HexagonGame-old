@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Hexagon.Globals;
 using Hexagon.Research.TechTrees;
@@ -44,10 +46,6 @@ namespace Hexagon.UI.TechTreeDisplay
 		{
 			foreach (var node in TechUINodes.Values)
 			{
-				// The horizontal position is based on the node's calculated depth.
-				var nodePos = new Vector2(NodeHorizontalSpacing * node.NodeToDisplay.FarthestDistanceFromRoot, 0);
-				node.Offset = nodePos;
-
 				// Make lines between the nodes.
 				foreach (var child in node.NodeToDisplay.Children)
 				{
@@ -56,6 +54,41 @@ namespace Hexagon.UI.TechTreeDisplay
 			}
 
 			var currentRow = 0;
+
+			foreach (var rootNode in Singleton.ScienceTechTree.RootNodes)
+			{
+				//var sortedNodes = DepthFirstSort(rootNode);
+				var sortedNodes = TopologicalSort(rootNode, new Stack<TechnologyNode>(),
+					new Dictionary<TechnologyNode, bool>()).ToList();
+				var distances = new Dictionary<TechnologyNode, int>();
+				foreach (var node in sortedNodes)
+				{
+					distances[node] = int.MinValue;
+					GD.Print(node);
+				}
+
+				distances[rootNode] = 0;
+				
+				foreach (var vertex in sortedNodes)
+				{
+					foreach (var edge in vertex.Children)
+					{
+						if (distances[edge] < distances[vertex] + 1)
+						{
+							distances[edge] = distances[vertex] + 1;
+						}
+					}
+				}
+
+				foreach (var thing in distances)
+				{
+					GD.Print(thing);
+					
+					var displayNode = TechUINodes[thing.Key];
+					displayNode.Offset = new Vector2(thing.Value * NodeHorizontalSpacing, displayNode.Offset.y);
+				}
+			}
+			
 			foreach (var rootNode in Singleton.ScienceTechTree.RootNodes)
 			{
 				var sortedNodes = DepthFirstSort(rootNode);
@@ -77,11 +110,21 @@ namespace Hexagon.UI.TechTreeDisplay
 					j++;
 				}
 
+				var result = TopologicalSort(rootNode, new Stack<TechnologyNode>(),
+					new Dictionary<TechnologyNode, bool>());
+				GD.Print("TopologicalSort results;");
+				foreach (var thing in result)
+				{
+					GD.Print(thing);
+				}
+				
 				currentRow++;
 
 
 
 			}
+			
+			
 		}
 
 		private List<TechnologyNode> DepthFirstSort(TechnologyNode rootNode)
@@ -93,29 +136,37 @@ namespace Hexagon.UI.TechTreeDisplay
 			do
 			{
 				var currentNode = stack.Pop();
-				//GD.Print("Current node is now " + currentNode);
 				
 				visited.Add(currentNode);
-				//GD.Print("Added " + currentNode);
 				foreach (var childNode in currentNode.Children)
 				{
 					if (visited.Contains(childNode))
 					{
-						//GD.Print("Visited list already contains " + childNode);
 						continue;
 					}
 					stack.Push(childNode);
-					//GD.Print("Adding " + childNode + " to stack.");
 				}
 
 			} while (stack.Count > 0);
 
 			return visited;
 		}
-		
-		
 
-	
+		private Stack<TechnologyNode> TopologicalSort(TechnologyNode currentNode, Stack<TechnologyNode> stack, Dictionary<TechnologyNode, bool> visited)
+		{
+			visited[currentNode] = true;
+			foreach (var child in currentNode.Children)
+			{
+				if (!visited.ContainsKey(child))
+				{
+					TopologicalSort(child, stack, visited);
+				}
+			}
+			stack.Push(currentNode);
+			return stack;
+		}
+
+
 	}
 }
 

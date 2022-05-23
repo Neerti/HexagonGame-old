@@ -43,37 +43,6 @@ namespace Hexagon.Research.TechTrees
 					entry.Value.LinkToParent(prerequisite);
 				}
 			}
-			
-			// Calculate the nodes' distances from the roots.
-			foreach (var node in tree.Nodes.Values)
-			{
-				if (!node.RootNode) { continue; }
-				
-				foreach (var other_node in tree.Nodes.Values)
-				{
-					if(other_node.Parents.Count == 0) {continue;}
-
-					foreach (var parent_of_other_node in other_node.Parents)
-					{
-						var dist = Mathf.Max(tree.DistanceBetweenNodes(parent_of_other_node, node) + 1, 1);
-						if (other_node.TechID == TechIDs.GoldWorking)
-						{
-							GD.Print(other_node + " is " + dist + " distance away from " + node);
-							var thing = tree.GetAllParentsOfNode(other_node);
-							foreach (var a in thing)
-							{
-								GD.Print(a);
-							}
-						}
-						
-						if (dist > other_node.FarthestDistanceFromRoot)
-						{
-							other_node.FarthestDistanceFromRoot = dist;
-						}
-					}
-
-				}
-			}
 
 			return tree;
 		}

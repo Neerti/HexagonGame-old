@@ -75,12 +75,6 @@ namespace Hexagon.Research.TechTrees
 		public List<TechnologyNode> Children { get; protected set; } = new List<TechnologyNode>();
 
 		/// <summary>
-		/// The maximum number of steps that could be taken to go from this node to a root node.
-		/// This is calculated at runtime and is used to help visualize the tech tree.
-		/// </summary>
-		public int FarthestDistanceFromRoot = 0;
-
-		/// <summary>
 		/// Connects this node to the input node in two directions. 
 		/// Note that this node will be 'ahead' of the inputted node.
 		/// </summary>

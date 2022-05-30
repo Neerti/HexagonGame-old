@@ -1,0 +1,135 @@
+[gd_scene format=2]
+
+[node name="Settings" type="PanelContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -200.0
+margin_right = 300.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 600, 400 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 593.0
+margin_bottom = 393.0
+
+[node name="SettingsLabel" type="Label" parent="VBoxContainer"]
+margin_right = 586.0
+margin_bottom = 14.0
+text = "Settings"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+margin_top = 18.0
+margin_right = 586.0
+margin_bottom = 22.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 26.0
+margin_right = 586.0
+margin_bottom = 122.0
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+margin_right = 291.0
+margin_bottom = 96.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 284.0
+margin_bottom = 89.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_right = 277.0
+margin_bottom = 14.0
+text = "Display"
+align = 1
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 18.0
+margin_right = 277.0
+margin_bottom = 38.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
+margin_top = 3.0
+margin_right = 177.0
+margin_bottom = 17.0
+size_flags_horizontal = 3
+text = "Full Screen"
+
+[node name="OptionButton" type="OptionButton" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 181.0
+margin_right = 277.0
+margin_bottom = 20.0
+text = "Windowed"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer"]
+margin_top = 42.0
+margin_right = 277.0
+margin_bottom = 82.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer4"]
+margin_top = 13.0
+margin_right = 197.0
+margin_bottom = 27.0
+size_flags_horizontal = 3
+text = "V-Sync"
+
+[node name="CheckButton" type="CheckButton" parent="VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 201.0
+margin_right = 277.0
+margin_bottom = 40.0
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
+margin_left = 295.0
+margin_right = 586.0
+margin_bottom = 96.0
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer2"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 284.0
+margin_bottom = 89.0
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+margin_right = 277.0
+margin_bottom = 14.0
+text = "Audio"
+align = 1
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+margin_top = 18.0
+margin_right = 277.0
+margin_bottom = 34.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5"]
+margin_top = 1.0
+margin_right = 116.0
+margin_bottom = 15.0
+size_flags_horizontal = 3
+text = "Main"
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5"]
+margin_left = 120.0
+margin_top = 1.0
+margin_right = 156.0
+margin_bottom = 15.0
+text = "100%"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/PanelContainer2/VBoxContainer/HBoxContainer5"]
+margin_left = 160.0
+margin_right = 277.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+value = 100.0
+rounded = true
+tick_count = 10
+ticks_on_borders = true

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Code/TitleScreen/About/GameIconsDotNetButton.cs" type="Script" id=1]
 [ext_resource path="res://Code/TitleScreen/About/SourceCodeRepoButton.cs" type="Script" id=2]
 [ext_resource path="res://Code/TitleScreen/About/GodotButton.cs" type="Script" id=3]
 [ext_resource path="res://Code/TitleScreen/About/CloseButton.cs" type="Script" id=4]
+[ext_resource path="res://Code/TitleScreen/About/CreativeCommons3BYButton.cs" type="Script" id=5]
 
 [node name="About" type="PanelContainer"]
 anchor_left = 0.5
@@ -15,6 +16,9 @@ margin_top = -198.0
 margin_right = 200.0
 margin_bottom = 198.0
 rect_min_size = Vector2( 300, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 margin_left = 7.0
@@ -125,13 +129,25 @@ text = "UI icons are sourcd from game-icons.net, provided under the Creative Com
 align = 1
 autowrap = true
 
-[node name="GameIconsDotNetButton" type="Button" parent="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2"]
 margin_left = 261.0
 margin_right = 386.0
 margin_bottom = 48.0
+
+[node name="GameIconsDotNetButton" type="Button" parent="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_right = 125.0
+margin_bottom = 20.0
 rect_min_size = Vector2( 125, 0 )
 text = "game-icons.net"
 script = ExtResource( 1 )
+
+[node name="CreativeCommons3BYButton" type="Button" parent="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/VBoxContainer"]
+margin_top = 24.0
+margin_right = 125.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 125, 0 )
+text = "CC 3.0 BY"
+script = ExtResource( 5 )
 
 [node name="MarginContainer3" type="MarginContainer" parent="VBoxContainer"]
 margin_top = 201.0

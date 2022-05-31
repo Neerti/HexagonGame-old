@@ -9,7 +9,7 @@ namespace Hexagon.UI.TechTreeDisplay
 {
 	public class TechUITree : GraphEdit
 	{
-		private Dictionary<TechnologyNode, TechUINode> TechUINodes = new Dictionary<TechnologyNode, TechUINode>();
+		public Dictionary<TechnologyNode, TechUINode> TechUINodes = new Dictionary<TechnologyNode, TechUINode>();
 		private const int NodeHorizontalSpacing = 300;
 		private const int NodeVerticalSpacing = 200;
 		

@@ -22,7 +22,8 @@ resolution=false
 [importer_defaults]
 
 texture={
-"flags/filter": false
+"flags/filter": false,
+"flags/mipmaps": true
 }
 
 [input]

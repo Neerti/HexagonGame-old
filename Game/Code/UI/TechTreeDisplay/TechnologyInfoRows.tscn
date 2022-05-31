@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Code/UI/Icons/lorc/gems.png" type="Texture" id=1]
+[ext_resource path="res://Code/UI/TechTreeDisplay/TechnologyInfoRows.cs" type="Script" id=2]
+
+[node name="TechnologyInfoRows" type="VBoxContainer"]
+margin_right = 224.0
+margin_bottom = 483.0
+size_flags_horizontal = 3
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 224.0
+margin_bottom = 64.0
+
+[node name="TechnologyTextureRect" type="TextureRect" parent="CenterContainer"]
+margin_left = 80.0
+margin_right = 144.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+texture = ExtResource( 1 )
+expand = true
+
+[node name="TechnologyNameLabel" type="Label" parent="."]
+margin_top = 68.0
+margin_right = 224.0
+margin_bottom = 82.0
+text = "Technology Name"
+align = 1
+
+[node name="TechnologyNameSeparator" type="HSeparator" parent="."]
+margin_top = 86.0
+margin_right = 224.0
+margin_bottom = 90.0
+
+[node name="ShortDescriptionLabel" type="Label" parent="."]
+margin_top = 94.0
+margin_right = 224.0
+margin_bottom = 125.0
+text = "ShortDescription goes here. It's one or two sentences."
+autowrap = true
+
+[node name="ShortDescriptionSeparator" type="HSeparator" parent="."]
+margin_top = 129.0
+margin_right = 224.0
+margin_bottom = 133.0
+
+[node name="DescriptionLabel" type="Label" parent="."]
+margin_top = 137.0
+margin_right = 224.0
+margin_bottom = 253.0
+text = "Description goes here, and it's longer than ShortDescription. Ideally, it should hold a paragraph of text, and elaborate on what the technology does. Care must be taken to not put too much text here."
+autowrap = true
+
+[node name="DescriptionSeparator" type="HSeparator" parent="."]
+margin_top = 257.0
+margin_right = 224.0
+margin_bottom = 261.0
+
+[node name="GameplayEffectsLabel" type="Label" parent="."]
+margin_top = 265.0
+margin_right = 224.0
+margin_bottom = 483.0
+text = "- GameplayEffects go here.
+- Provides a bulletpoint list of mechanical changes.
+- Effects could include;
+    - Unlocking new roles for people to do.
+    - New buildings.
+    - New functionality to existing buildings or roles.
+    - Unlocking new UI elements.
+    - Enabling automation of certain aspects of the game.
+    - Other neat things, hopefully."
+autowrap = true

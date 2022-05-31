@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Godot;
 
 namespace Hexagon.Research.TechTrees
 {
@@ -7,7 +8,7 @@ namespace Hexagon.Research.TechTrees
 	/// for the purposes of researching technologies.
 	/// The actual tracking of whether any given tech is unlocked is done on a different object.
 	/// </summary>
-	public abstract class TechnologyNode
+	public abstract class TechnologyNode : Node
 	{
 		/// <summary>
 		/// Internal identification enum for tech nodes. 
@@ -46,6 +47,12 @@ namespace Hexagon.Research.TechTrees
 		/// An optional quote, displayed in the UI for flavor.
 		/// </summary>
 		public string Quote { get; protected set; }
+		
+		/// <summary>
+		/// A resource path to a specific texture that represents the technology, such as a picture of a
+		/// pickaxe striking a rock to represent mining.
+		/// </summary>
+		public string TexturePath { get; protected set; } = "res://Code/UI/Icons/lorc/tied-scroll.png";
 
 		/// <summary>
 		/// List of types of nodes which are prerequisites of this node.
@@ -130,6 +137,7 @@ namespace Hexagon.Research.TechTrees
 		Carving,
 		GemCutting,
 		GoldWorking,
-		Monuments
+		Monuments,
+		Hunting
 	}
 }

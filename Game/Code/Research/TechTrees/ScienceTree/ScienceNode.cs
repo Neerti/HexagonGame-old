@@ -41,7 +41,21 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 		{
 			TechID = TechIDs.Foraging;
 			DisplayName = "Foraging";
+			ShortDescription = "Finding food and other useful things.";
 			RootNode = true;
+			TexturePath = "res://Code/UI/Icons/lorc/falling-leaf.png";
+		}
+	}
+	
+	public class Hunting : ScienceNode
+	{
+		public Hunting()
+		{
+			TechID = TechIDs.Hunting;
+			DisplayName = "Persistence Hunting";
+			ShortDescription = "Run for your food.";
+			RootNode = true;
+			TexturePath = "res://Code/UI/Icons/lorc/run.png";
 		}
 	}
 	
@@ -55,6 +69,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			Description = "Knapping, or Lithic reduction, is a process that sharpens a stone by " +
 			              "removing parts of it, using blunt force.";
 			GameplayEffects = "Enables crafting of sharpened stones.";
+			TexturePath = "res://Code/UI/Icons/delapouite/silex.png";
 			ParentTechIDs.Add(TechIDs.Foraging );
 		}
 	}
@@ -68,6 +83,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			Description = "Bone is a fairly hard material that can occasionally be found while looking for food, " +
 			              "whether from scavenging cadavers, or hunting animals. Unlike stone or wood, it comes in " +
 			              "a number of shapes that might be desirable.";
+			TexturePath = "res://Code/UI/Icons/delapouite/bone-knife.png";
 			ParentTechIDs.Add(TechIDs.StoneKnapping );
 		}
 	}
@@ -79,6 +95,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			TechID = TechIDs.Sewing;
 			DisplayName = "Sewing";
 			ParentTechIDs.Add(TechIDs.BoneWorking );
+			TexturePath = "res://Code/UI/Icons/lorc/sewing-needle.png";
 		}
 	}
 	
@@ -118,6 +135,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			              "as handles. This allows for more force to be applied, and less of a chance of cutting " +
 			              "the user's hand from squeezing too hard.";
 			GameplayEffects = "Enables crafting of tools, that certain roles may require in the future.";
+			TexturePath = "res://Code/UI/Icons/lorc/stone-axe.png";
 			ParentTechIDs.Add(TechIDs.Woodcutting );
 		}
 	}
@@ -133,6 +151,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			              "A specific bone from a large animal might be suitable as the tool head.";
 			GameplayEffects = "Allows crafting of bone shovels, and also enables the Digger role, " +
 			                  "allowing for targeted collection of materials such as dirt, sand, or clay.";
+			TexturePath = "res://Code/UI/Icons/delapouite/dig-hole.png";
 			ParentTechIDs.Add(TechIDs.ToolMaking);
 			ParentTechIDs.Add(TechIDs.BoneWorking);
 		}
@@ -151,6 +170,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			              "or discarded.";
 			GameplayEffects = "Allows for crafting of stone pickaxes, and also enables the Miner role, " +
 			                  "allowing for targeted collection of stones and surface veins.";
+			TexturePath = "res://Code/UI/Icons/lorc/mining.png";
 			ParentTechIDs.Add(TechIDs.Digging);
 		}
 	}
@@ -210,6 +230,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			TechID = TechIDs.Building;
 			DisplayName = "Building";
 			ShortDescription = "Long-term structures.";
+			TexturePath = "res://Code/UI/Icons/delapouite/hut.png";
 			ParentTechIDs.Add(TechIDs.ToolMaking );
 		}
 	}
@@ -256,6 +277,8 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			DisplayName = "Gem Cutting";
 			ShortDescription = "Shiny and pretty.";
 			ParentTechIDs.Add(TechIDs.Carving );
+			ParentTechIDs.Add(TechIDs.Mining );
+			TexturePath = "res://Code/UI/Icons/lorc/gems.png";
 		}
 	}
 	
@@ -283,6 +306,7 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 			              "to burn, but they could also be ignited deliberately. The control of fire would " +
 			              "provide numerous benefits such as warmth, lighting, warding predators, and the ability to " +
 			              "heat up objects to change them.";
+			TexturePath = "res://Code/UI/Icons/lorc/campfire.png";
 			ParentTechIDs.Add(TechIDs.Foraging);
 		}
 	}
@@ -304,10 +328,12 @@ namespace Hexagon.Research.TechTrees.ScienceTree
 		{
 			TechID = TechIDs.Ceramics;
 			DisplayName = "Ceramics";
+			ShortDescription = "Easily shaped containers.";
 			GameplayEffects = "Can craft ceramic pots, which act as containers for various goods. " +
 			                  "Containers help preserve their contents, and enables storing certain " +
 			                  "resources that might otherwise not be possible to hold normally, such " +
 			                  "as water.";
+			TexturePath = "res://Code/UI/Icons/delapouite/painted-pottery.png";
 			ParentTechIDs.Add(TechIDs.Cooking);
 		}
 	}

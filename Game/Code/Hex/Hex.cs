@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Hexagon
 {
@@ -9,8 +10,8 @@ namespace Hexagon
 	{
 		// Cartesian coordinates.
 		public readonly int X, Y;
-		// Cube coordinates. TODO
-		public readonly int q, r, s;
+		// Cube coordinates.
+		public readonly int Q, R, S;
 
 		public float Height;
 		public float Humidity;
@@ -44,8 +45,25 @@ namespace Hexagon
 		{
 			X = new_x;
 			Y = new_y;
+			
+			// Calculate cube coordinates.
+			/*
+
+function oddq_to_cube(hex):
+    var q = hex.col
+    var r = hex.row - (hex.col - (hex.col&1)) / 2
+    return Cube(q, r, -q-r)
+*/
+			
+			Q = X;
+			R = Y - (X - (X & 1)) / 2;
+			S = -Q - R;
+			
+			Debug.Assert(Q + R + S == 0);
+
 		}
 
 	}
 }
+
 

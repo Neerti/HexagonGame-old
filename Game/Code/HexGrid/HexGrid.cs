@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using Godot;
+using JetBrains.Annotations;
 
 namespace Hexagon
 {
@@ -10,7 +12,7 @@ namespace Hexagon
 	{
 		public readonly int SizeX;
 		public readonly int SizeY;
-		private Hex[,] grid;
+		private Hex[,] _grid;
 
 		public HexGrid(int new_size_x, int new_size_y)
 		{
@@ -29,7 +31,7 @@ namespace Hexagon
 			{
 				throw new IndexOutOfRangeException("Y coordinate was out of bounds.");
 			}
-			return grid[x,y];
+			return _grid[x,y];
 		}
 
 		public bool HasHex(int x, int y)
@@ -58,17 +60,26 @@ namespace Hexagon
 		{
 			return GetHexByOffset(tile.X, tile.Y, x_offset, y_offset);
 		}
+		
+		[CanBeNull]
+		public Hex GetHexCubic(int q, int r, int s)
+		{
+			var x = q;
+			var y = r + (q - (q & 1)) / 2;
+			return HasHex(x, y) ? GetHex(x, y) : null;
+		}
+		
 
 		// Creates an empty grid of logical hexagons objects. 
 		// This will overwrite and completely wipe out any existing map.
 		private void MakeEmptyGrid()
 		{
-			grid = new Hex[SizeX, SizeY];
-			for (int x = 0; x < SizeX; x++)
+			_grid = new Hex[SizeX, SizeY];
+			for (var x = 0; x < SizeX; x++)
 			{
-				for (int y = 0; y < SizeY; y++)
+				for (var y = 0; y < SizeY; y++)
 				{
-					grid[x, y] = new Hex(x, y);
+					_grid[x, y] = new Hex(x, y);
 				}
 			}
 		}
@@ -82,7 +93,7 @@ namespace Hexagon
 			{
 				for(var y = 0; y < SizeY; y++)
 				{
-					float value = grid[x,y].Height;
+					float value = _grid[x,y].Height;
 
 					var chosen_color = Colors.Black;
 					chosen_color = chosen_color.LinearInterpolate(Colors.White, value);
@@ -102,14 +113,13 @@ namespace Hexagon
 					// For now it's just height based.
 					// Someday it will also incorporate temperature and humidity.
 
-					var tile = grid[x,y];
+					var tile = _grid[x,y];
 					float value = tile.Height;
 
 					// TESTING
-					//value = Mathf.Sqrt(value);
 					var chosen_tile_type = Hex.TileType.BASE;
 
-					// This is superugly and hopefully temporary.
+					// This is super ugly and hopefully temporary.
 					float sea_level_offset = 0.1f;
 					if(value > (0.25f + sea_level_offset))
 					{
@@ -155,7 +165,7 @@ namespace Hexagon
 				for(var y = 0; y < SizeY; y++)
 				{
 					var chosen_color = Colors.White;
-					var tile = grid[x,y];
+					var tile = _grid[x,y];
 					// TileTypes should probably be made into their own objects.
 					switch (tile.tile_type)
 					{
@@ -208,7 +218,7 @@ namespace Hexagon
 				for(var y = 0; y < SizeY; y++)
 				{
 					var chosen_color = Colors.Blue;
-					var tile = grid[x,y];
+					var tile = _grid[x,y];
 					chosen_color = chosen_color.LinearInterpolate(Colors.Red, tile.Temperature);
 
 					if(GetHexBiomeBitmask(tile) != 15)

@@ -5,7 +5,7 @@ namespace Hexagon.Items
 	/// <summary>
 	/// Consumable in this context refers to any item which can be eaten or drank.
 	/// </summary>
-	public abstract class ConsumableItem : Item
+	public class ConsumableItem : Item
 	{
 		/// <summary>
 		/// Determines how filling a particular food is.

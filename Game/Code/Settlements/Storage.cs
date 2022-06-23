@@ -9,6 +9,17 @@ namespace Hexagon.Settlements
 	{
 		public Dictionary<ItemIDs, int> Items = new Dictionary<ItemIDs, int>();
 
+		public override void _Ready()
+		{
+			StarterItems(); // TODO remove after testing
+		}
+
+		public void StarterItems()
+		{
+			AddItem(ItemIDs.CleanWater, 10);
+			AddItem(ItemIDs.Berry, 20);
+		}
+
 		public bool CanStoreItem(ItemIDs thing, int amount)
 		{
 			// TODO implement storage limits.

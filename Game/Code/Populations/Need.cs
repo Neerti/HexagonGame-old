@@ -5,10 +5,12 @@ namespace Hexagon.Populations
 	/// </summary>
 	public abstract class Need
 	{
+		public NeedKinds NeedKind { get; protected set; }
+		
 		/// <summary>
 		/// The name of the Need, shown in UIs to the player.
 		/// </summary>
-		protected string DisplayName;
+		public string DisplayName { get; protected set; }
 		
 		/// <summary>
 		/// A short description of the Need, shown in UIs to the player.
@@ -21,7 +23,11 @@ namespace Hexagon.Populations
 		/// </summary>
 		protected float BaseRequirementPerDay = 1.0f;
 		
-		protected float MaxDeficit;
+		/// <summary>
+		/// How much of a deficit can be accumulated. The actual number is based on the daily requirement multiplied
+		/// by this number.
+		/// </summary>
+		protected float MaxDeficitMultiplier = 1.0f;
 		
 		/// <summary>
 		/// Determines how much extra resources can be consumed to 'pay back' a need deficit.
@@ -33,6 +39,15 @@ namespace Hexagon.Populations
 		{
 			return DisplayName;
 		}
+
+		/// <summary>
+		/// Returns how much of something is required to satisfy the Need for a day.
+		/// </summary>
+		/// <returns>Amount required per day.</returns>
+		public float GetNeededAmount(Person who)
+		{
+			return BaseRequirementPerDay * who.ScaleNeedRequirement();
+		}
 	}
 	
 
@@ -40,8 +55,9 @@ namespace Hexagon.Populations
 	{
 		public FoodNeed()
 		{
+			NeedKind = NeedKinds.Food;
 			DisplayName = "Hunger";
-			MaxDeficit = 21.0f;
+			MaxDeficitMultiplier = 21.0f;
 		}
 	}
 	
@@ -49,8 +65,15 @@ namespace Hexagon.Populations
 	{
 		public WaterNeed()
 		{
+			NeedKind = NeedKinds.Water;
 			DisplayName = "Thirst";
-			MaxDeficit = 3.0f;
+			MaxDeficitMultiplier = 3.0f;
 		}
+	}
+
+	public enum NeedKinds
+	{
+		Food,
+		Water
 	}
 }

@@ -1,4 +1,6 @@
 using Godot;
+using Godot.Collections;
+using Hexagon.Populations;
 
 namespace Hexagon.Items
 {
@@ -35,7 +37,7 @@ namespace Hexagon.Items
 		/// <summary>
 		/// Internal identification enum for items. 
 		/// </summary>
-		protected ItemIDs ItemID { get; set; } = ItemIDs.Base;
+		public ItemIDs ItemID { get; protected set; } = ItemIDs.Base;
 
 		/// <summary>
 		/// The name of the <see cref="Item"/>, displayed in UIs, generally in singular form.
@@ -71,6 +73,12 @@ namespace Hexagon.Items
 		protected ItemCategory Category { get; set; } = ItemCategory.General;
 
 		protected float Volume { get; set; } = 1.0f;
+
+		/// <summary>
+		/// Some items can fulfill specific <see cref="Need"/>s that a <see cref="Person"/> may have,
+		/// such as water providing hydration.
+		/// </summary>
+		public Dictionary<NeedKinds, float> NeedFulfill { get; protected set; } = new Dictionary<NeedKinds, float>();
 
 		public override string ToString()
 		{

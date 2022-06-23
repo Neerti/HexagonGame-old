@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
+using Hexagon.Globals;
 using Hexagon.Items;
 using Hexagon.Populations;
 
@@ -13,10 +15,66 @@ namespace Hexagon.Settlements
 	/// </summary>
 	public class Settlement : Node
 	{
-		public List<Person> People;
+		public void ProcessSettlement()
+		{
+			GD.Print(Name + " was processed.");
+			// Buildings are always processed first, since otherwise the people might not have their needs met on time.
+			ProcessBuildings();
+			ProcessPopulation();
+		}
 
-		public List<Building> Buildings;
+		private void ProcessBuildings()
+		{
+			foreach (var node in GetNode<Node>("Buildings").GetChildren())
+			{
+				var building = (Building) node;
+				building.Process();
+			}
+		}
+		private void ProcessPopulation()
+		{
+			NeedManager.ProcessNeeds(this);
+		}
+		
 
+		public List<Person> GetPopulation()
+		{
+			var result = new List<Person>();
+			var populationNode = GetNode<Node>("Population");
+			var children = populationNode.GetChildren();
+			for (var i = 0; i < children.Count; i++)
+			{
+				result.Add((Person)children[i]);
+			}
+
+			return result;
+		}
+
+		public Godot.Collections.Dictionary<ItemIDs, int> GetStorage()
+		{
+			return new Godot.Collections.Dictionary<ItemIDs, int>()
+			{
+				[ItemIDs.Apple] = 20,
+				[ItemIDs.CleanWater] = 30
+			};
+		}
+
+		public List<Storage> GetAllStorage()
+		{
+			var result = new List<Storage>();
+			foreach (var node in GetNode<Node>("Buildings").GetChildren())
+			{
+				var building = (Building) node;
+				var possible_storage = building.TryGetStorage();
+				if (possible_storage is null)
+				{
+					continue;
+				}
+				result.Add(possible_storage);
+			}
+
+			return result;
+		}
 
 
 

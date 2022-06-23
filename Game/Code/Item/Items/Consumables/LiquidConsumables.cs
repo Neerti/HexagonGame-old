@@ -1,14 +1,16 @@
+using Hexagon.Populations;
+
 namespace Hexagon.Items
 {
 	/// <summary>
 	/// Abstract class for consumables in liquid form, used to fulfill hydration need.
 	/// </summary>
-	public abstract class LiquidConsumables : ConsumableItem
+	public class LiquidConsumables : ConsumableItem
 	{
-		protected LiquidConsumables()
+		public LiquidConsumables()
 		{
-			Nourishment = 1.0f;
 			GameplayDescription = "Consumed to avoid dying of thirst.";
+			NeedFulfill.Add(NeedKinds.Water, 1.0f);
 		}
 	}
 	

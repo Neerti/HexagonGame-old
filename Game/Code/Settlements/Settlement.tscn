@@ -1,29 +1,29 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Code/Settlements/Settlement.cs" type="Script" id=1]
-[ext_resource path="res://Code/Populations/Person.cs" type="Script" id=2]
-[ext_resource path="res://Code/Settlements/Building.cs" type="Script" id=3]
-[ext_resource path="res://Code/Settlements/Storage.cs" type="Script" id=4]
-[ext_resource path="res://Code/Settlements/JobComponent.cs" type="Script" id=5]
+[ext_resource path="res://Code/Settlements/Building.cs" type="Script" id=1]
+[ext_resource path="res://Code/Settlements/Storage.cs" type="Script" id=2]
+[ext_resource path="res://Code/Settlements/JobComponent.cs" type="Script" id=3]
+[ext_resource path="res://Code/Settlements/Populations/Person.cs" type="Script" id=4]
+[ext_resource path="res://Code/Settlements/Settlement.cs" type="Script" id=5]
 
 [node name="UnnamedSettlement" type="Node"]
-script = ExtResource( 1 )
+script = ExtResource( 5 )
 
 [node name="Buildings" type="Node" parent="."]
 
 [node name="Building" type="Node" parent="Buildings"]
-script = ExtResource( 3 )
+script = ExtResource( 1 )
 
 [node name="StorageComponent" type="Node" parent="Buildings/Building"]
-script = ExtResource( 4 )
+script = ExtResource( 2 )
 
 [node name="JobComponent" type="Node" parent="Buildings/Building"]
-script = ExtResource( 5 )
+script = ExtResource( 3 )
 
 [node name="Population" type="Node" parent="."]
 
 [node name="Alice" type="Node" parent="Population"]
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 
 [node name="Bob" type="Node" parent="Population"]
-script = ExtResource( 2 )
+script = ExtResource( 4 )

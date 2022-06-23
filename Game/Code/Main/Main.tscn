@@ -17,6 +17,6 @@ script = ExtResource( 4 )
 [node name="AllFactions" type="Node" parent="."]
 script = ExtResource( 3 )
 
-[node name="Faction" parent="AllFactions" instance=ExtResource( 2 )]
+[node name="UnnamedFaction" parent="AllFactions" instance=ExtResource( 2 )]
 
 [editable path="Time"]

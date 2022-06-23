@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Code/MapDisplay/MapTileset.tres" type="TileSet" id=1]
-[ext_resource path="res://Code/MapDisplay/MapDisplay.cs" type="Script" id=2]
+[ext_resource path="res://Code/Map/MapDisplay/MapDisplay.cs" type="Script" id=1]
+[ext_resource path="res://Code/Map/MapDisplay/MapTileset.tres" type="TileSet" id=2]
 
 [node name="MapDisplay" type="Node2D"]
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = ExtResource( 1 )
+tile_set = ExtResource( 2 )
 cell_size = Vector2( 48, 30 )
 cell_half_offset = 1
 cell_y_sort = true

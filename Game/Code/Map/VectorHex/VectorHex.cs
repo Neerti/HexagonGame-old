@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Hexagon.Map.VectorHex
+namespace Hexagon.Map
 {
 	/// <summary>
 	/// Virtual structure that represents a specific coordinate in a hexagonal grid,
@@ -47,12 +47,29 @@ namespace Hexagon.Map.VectorHex
 			}
 		}
 
+		/// <summary>
+		/// The first cubic coordinate.
+		/// </summary>
 		public int Q { get; }
+		
+		/// <summary>
+		/// The second cubic coordinate.
+		/// </summary>
 		public int R { get; }
+		
+		/// <summary>
+		/// The third cubic coordinate.
+		/// </summary>
 		public int S { get; }
 		
+		/// <summary>
+		/// The first cartesian coordinate.
+		/// </summary>
 		public int X { get; }
 		
+		/// <summary>
+		/// The second cartesian coordinate.
+		/// </summary>
 		public int Y { get; }
 
 		public static readonly List<VectorHex> AdjacentHexes = new List<VectorHex>

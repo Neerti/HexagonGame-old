@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using Hexagon.Map;
 
 namespace Hexagon
 {
@@ -8,11 +9,8 @@ namespace Hexagon
 	/// </summary>
 	public class Hex
 	{
-		// Cartesian coordinates.
-		public readonly int X, Y;
-		// Cube coordinates.
-		public readonly int Q, R, S;
-
+		public VectorHex Position;
+		
 		public float Height;
 		public float Humidity;
 		public float Temperature;
@@ -43,24 +41,7 @@ namespace Hexagon
 
 		public Hex(int new_x, int new_y)
 		{
-			X = new_x;
-			Y = new_y;
-			
-			// Calculate cube coordinates.
-			/*
-
-function oddq_to_cube(hex):
-    var q = hex.col
-    var r = hex.row - (hex.col - (hex.col&1)) / 2
-    return Cube(q, r, -q-r)
-*/
-			
-			Q = X;
-			R = Y - (X - (X & 1)) / 2;
-			S = -Q - R;
-			
-			Debug.Assert(Q + R + S == 0);
-
+			Position = new VectorHex(new_x, new_y);
 		}
 
 	}

@@ -176,6 +176,13 @@ namespace Hexagon
 			{
 				SetZoomLevel(_zoomIndex + 1);
 			}
+			else if (@event is InputEventMouseButton clickEvent)
+			{
+				if (clickEvent.Pressed && clickEvent.ButtonIndex == (int) ButtonList.Left)
+				{
+					GD.Print(clickEvent.Position);
+				}
+			}
 		}
 
 		/// <summary>

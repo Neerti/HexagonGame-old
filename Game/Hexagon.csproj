@@ -6,4 +6,7 @@
     <PackageReference Include="JetBrains.Annotations" Version="2022.1.0" />
     <PackageReference Include="xunit" Version="2.4.2-pre.12" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Code\Map\VisualMap\VisualChunks\HybridChunks" />
+  </ItemGroup>
 </Project>

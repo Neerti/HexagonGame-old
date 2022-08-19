@@ -32,9 +32,6 @@ margin_left = 10.0
 margin_top = -102.0
 margin_right = -10.0
 margin_bottom = -10.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 self_modulate = Color( 1, 1, 1, 0.5 )
@@ -48,9 +45,6 @@ margin_left = 5.0
 margin_top = 5.0
 margin_right = -5.0
 margin_bottom = -5.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ReferenceRect" type="ReferenceRect" parent="MarginContainer/Panel/MarginContainer"]
 margin_right = 994.0

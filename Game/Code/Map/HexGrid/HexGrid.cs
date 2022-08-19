@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Hexagon.Map;
 using JetBrains.Annotations;
 
 namespace Hexagon
@@ -34,6 +35,11 @@ namespace Hexagon
 			return _grid[x,y];
 		}
 
+		public Hex GetHex(VectorHex v)
+		{
+			return GetHex(v.X, v.Y);
+		}
+
 		public bool HasHex(int x, int y)
 		{
 			if(x < 0 || x > SizeX - 1)
@@ -47,6 +53,11 @@ namespace Hexagon
 			return true;
 		}
 
+		public bool HasHex(VectorHex v)
+		{
+			return HasHex(v.X, v.Y);
+		}
+
 		public Hex GetHexByOffset(int x, int y, int x_offset, int y_offset)
 		{
 			if(HasHex(x + x_offset, y + y_offset))
@@ -55,20 +66,12 @@ namespace Hexagon
 			}
 			return null;
 		}
-
+		
 		public Hex GetHexByOffset(Hex tile, int x_offset, int y_offset)
 		{
-			return GetHexByOffset(tile.X, tile.Y, x_offset, y_offset);
+			return GetHexByOffset(tile.Position.X, tile.Position.Y, x_offset, y_offset);
 		}
-		
-		[CanBeNull]
-		public Hex GetHexCubic(int q, int r, int s)
-		{
-			var x = q;
-			var y = r + (q - (q & 1)) / 2;
-			return HasHex(x, y) ? GetHex(x, y) : null;
-		}
-		
+
 
 		// Creates an empty grid of logical hexagons objects. 
 		// This will overwrite and completely wipe out any existing map.

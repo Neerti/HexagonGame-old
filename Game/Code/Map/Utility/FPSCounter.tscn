@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Code/Map/MapDisplay2/FPSLabel.cs" type="Script" id=1]
+[ext_resource path="res://Code/Map/Utility/FPSLabel.cs" type="Script" id=1]
 [ext_resource path="res://Code/Map/Utility/VSyncButton.cs" type="Script" id=2]
 
 [node name="FPSCounter" type="PanelContainer"]

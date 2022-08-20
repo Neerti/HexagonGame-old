@@ -6,7 +6,14 @@ namespace Hexagon.Map.VisualMap.VisualChunks.HybridChunks
     public class HybridChunk : VisualChunk
     {
         private SpriteGrid _sprites;
-        
+
+        public override void _Ready()
+        {
+            var vis = GetNode<VisibilityNotifier2D>("ChunkVisibilityNotifier");
+            vis.Connect("screen_exited", this, nameof(VisualChunk.OnScreenExited));
+            vis.Connect("screen_entered", this, nameof(VisualChunk.OnScreenEntered));
+        }
+
         private void LoadChunk()
         {
             // Make the sprites.
@@ -39,6 +46,7 @@ namespace Hexagon.Map.VisualMap.VisualChunks.HybridChunks
 
         public override void _Notification(int what)
         {
+            /*
             // Clean up when closing the game and avoid erroneous debug errors when quitting.
             if (what == MainLoop.NotificationWmQuitRequest)
             {
@@ -48,6 +56,7 @@ namespace Hexagon.Map.VisualMap.VisualChunks.HybridChunks
                     .Disconnect("screen_exited", this, nameof(VisualChunk.OnScreenExited));
                 _sprites?.QueueFree();
             }
+            */
                 
         }
         

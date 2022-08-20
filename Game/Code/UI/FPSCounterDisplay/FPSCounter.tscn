@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Code/Map/Utility/FPSLabel.cs" type="Script" id=1]
-[ext_resource path="res://Code/Map/Utility/VSyncButton.cs" type="Script" id=2]
+[ext_resource path="res://Code/UI/FPSCounterDisplay/FPSLabel.cs" type="Script" id=1]
+[ext_resource path="res://Code/UI/FPSCounterDisplay/VSyncButton.cs" type="Script" id=2]
 
 [node name="FPSCounter" type="PanelContainer"]
 self_modulate = Color( 1, 1, 1, 0.5 )

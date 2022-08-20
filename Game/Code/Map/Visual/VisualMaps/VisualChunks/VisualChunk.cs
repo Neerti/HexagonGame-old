@@ -1,6 +1,4 @@
 using Godot;
-using Hexagon.Map.VisualMap.VisualChunks.LoadedChunks;
-using Hexagon.Map.VisualMap.VisualChunks.UnloadedChunks;
 
 namespace Hexagon.Map.VisualMap.VisualChunks
 {
@@ -9,12 +7,6 @@ namespace Hexagon.Map.VisualMap.VisualChunks
 	/// </summary>
 	public class VisualChunk : Node2D
 	{
-		[Signal]
-		public delegate void OnChunkVisible(UnloadedChunk source);
-		
-		[Signal]
-		public delegate void OnChunkInvisible(LoadedChunk source);
-		
 		/// <summary>
 		/// Cartesian X coordinate for this chunk instance.
 		/// </summary>

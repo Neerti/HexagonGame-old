@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using Godot;
-using Hexagon.Map;
 using Hexagon.Map.Logical.VectorHex;
-using JetBrains.Annotations;
 
 namespace Hexagon
 {

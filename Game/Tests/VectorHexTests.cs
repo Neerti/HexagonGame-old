@@ -1,5 +1,6 @@
 using Xunit;
 using Hexagon.Map;
+using Hexagon.Map.Logical.VectorHex;
 
 namespace Hexagon.Tests
 {

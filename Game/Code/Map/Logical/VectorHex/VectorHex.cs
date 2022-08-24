@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Hexagon.Map
+namespace Hexagon.Map.Logical.VectorHex
 {
 	/// <summary>
 	/// Virtual structure that represents a specific coordinate in a hexagonal grid,

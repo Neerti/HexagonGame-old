@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using System.Diagnostics;
 using Hexagon.Map;
+using Hexagon.Map.Logical.VectorHex;
 
 namespace Hexagon
 {

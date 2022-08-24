@@ -7,6 +7,6 @@
     <PackageReference Include="xunit" Version="2.4.2-pre.12" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Code\Map\VisualMap\VisualChunks\HybridChunks" />
+    <Folder Include="Code\Map\Visual\VisualMaps" />
   </ItemGroup>
 </Project>

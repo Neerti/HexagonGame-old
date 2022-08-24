@@ -11,11 +11,11 @@ namespace Hexagon.Map.Logical.VectorHex
 	public readonly struct VectorHex : IEquatable<VectorHex>
 	{
 		/// <summary>
-		/// Creates a new VectorHex struct.
+		/// Creates a new VectorHex struct with cubic coordinates.
 		/// </summary>
-		/// <param name="q"></param>
-		/// <param name="r"></param>
-		/// <param name="s"></param>
+		/// <param name="q">The first cubic coordinate.</param>
+		/// <param name="r">The second cubic coordinate.</param>
+		/// <param name="s">The third cubic coordinate.</param>
 		/// <exception cref="ArgumentException">All three arguments must sum to zero to be valid.</exception>
 		public VectorHex(int q, int r, int s)
 		{
@@ -32,6 +32,11 @@ namespace Hexagon.Map.Logical.VectorHex
 			}
 		}
 
+		/// <summary>
+		/// Creates a new VectorHex struct with cartesian coordinates.
+		/// </summary>
+		/// <param name="x">The first cartesian coordinate.</param>
+		/// <param name="y">The second cartesian coordinate.</param>
 		public VectorHex(int x, int y)
 		{
 			X = x;

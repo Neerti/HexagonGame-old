@@ -6,26 +6,25 @@ namespace Hexagon.Map.Visual.VisualGrids
 {
 	public class VisualGrid : Node2D
 	{
-		private LogicalGrid Map;
+		private LogicalGrid _map;
 
 		public override void _Ready()
 		{
 			var mapGen = new MapGenerator(2);
-			Map = mapGen.GenerateNewMap(512, 512);
+			_map = mapGen.GenerateNewMap(512, 512);
 			
 			BuildGrid();
 		}
-		
-		public void BuildGrid()
+
+		private void BuildGrid()
 		{
-			var _packedChunk = (PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualChunks/HybridChunks/HybridChunk.tscn");
+			var packedChunk = (PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualChunks/HybridChunks/HybridChunk.tscn");
 			
-			for (int i = 0; i < Map.SizeX / VisualChunk.ChunkSize; i++)
+			for (int i = 0; i < _map.SizeX / VisualChunk.ChunkSize; i++)
 			{
-				for (int j = 0; j < Map.SizeY / VisualChunk.ChunkSize; j++)
+				for (int j = 0; j < _map.SizeY / VisualChunk.ChunkSize; j++)
 				{
-					//var newUnloadedChunk = MakeUnloadedChunk(Map, i, j);
-					var newChunk = (HybridChunk)_packedChunk.Instance();
+					var newChunk = (HybridChunk)packedChunk.Instance();
 
 					newChunk.Name = $"Chunk {i},{j}";
 					
@@ -34,7 +33,7 @@ namespace Hexagon.Map.Visual.VisualGrids
 						j * VisualChunk.ChunkHeight
 					);
 					
-					newChunk.SetUp(Map, i, j);
+					newChunk.SetUp(_map, i, j);
 					
 					GetNode<YSort>("Chunks").AddChild(newChunk);
 				}

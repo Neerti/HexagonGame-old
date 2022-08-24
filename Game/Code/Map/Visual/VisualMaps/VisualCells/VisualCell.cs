@@ -3,7 +3,7 @@ using Godot;
 
 namespace Hexagon.Map.MapDisplays
 {
-	public class HexagonSprite : Sprite
+	public class VisualCell : Sprite
 	{
 		private Color _baseColor = new Color(1f, 1f, 1f);
 		private bool _mousedOver = false;

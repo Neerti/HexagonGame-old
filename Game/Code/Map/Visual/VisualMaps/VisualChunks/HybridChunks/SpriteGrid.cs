@@ -23,7 +23,7 @@ namespace Hexagon.Map.VisualMap.VisualChunks.LoadedChunks
 			if (_packedHexagonSprite is null)
 			{
 				_packedHexagonSprite =
-					(PackedScene) ResourceLoader.Load("res://Code/Map/MapDisplay2/HexagonSprite/HexagonSprite.tscn");
+					(PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualMaps/VisualCells/VisualCell.tscn");
 			}
 
 			// Make new sprites.
@@ -31,7 +31,7 @@ namespace Hexagon.Map.VisualMap.VisualChunks.LoadedChunks
 			{
 				for (var j = 0; j < VisualChunk.ChunkSize; j++)
 				{
-					var newSprite = (HexagonSprite)_packedHexagonSprite.Instance();
+					var newSprite = (VisualCell)_packedHexagonSprite.Instance();
 					AddChild(newSprite);
 
 					var new_x = i * VisualChunk.SpriteWidth;

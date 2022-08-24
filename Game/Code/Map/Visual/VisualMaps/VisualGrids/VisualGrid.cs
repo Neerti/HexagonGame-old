@@ -36,7 +36,6 @@ namespace Hexagon.Map.VisualMap.VisualGrids
 					
 					newChunk.SetUp(Map, i, j);
 					
-					//GetNode<YSort>("Chunks").AddChild(newUnloadedChunk);
 					GetNode<YSort>("Chunks").AddChild(newChunk);
 				}
 			}

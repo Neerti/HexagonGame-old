@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Code/Map/Visual/VisualMaps/VisualGrids/VisualGrid.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Code/Map/Visual/VisualMaps/VisualScreens/VisualScreen.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Code/Map/Visual/VisualGrids/VisualGrid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Code/Map/Visual/VisualScreens/VisualScreen.tscn" type="PackedScene" id=2]
 
 [node name="VisualMap" type="Node2D"]
 

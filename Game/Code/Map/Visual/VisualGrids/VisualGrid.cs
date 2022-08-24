@@ -18,7 +18,7 @@ namespace Hexagon.Map.VisualMap.VisualGrids
 		
 		public void BuildGrid()
 		{
-			var _packedChunk = (PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualMaps/VisualChunks/HybridChunks/HybridChunk.tscn");
+			var _packedChunk = (PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualChunks/HybridChunks/HybridChunk.tscn");
 			
 			for (int i = 0; i < Map.SizeX / VisualChunks.VisualChunk.ChunkSize; i++)
 			{

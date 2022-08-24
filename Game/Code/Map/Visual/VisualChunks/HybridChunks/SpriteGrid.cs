@@ -23,7 +23,7 @@ namespace Hexagon.Map.VisualMap.VisualChunks.LoadedChunks
 			if (_packedHexagonSprite is null)
 			{
 				_packedHexagonSprite =
-					(PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualMaps/VisualCells/VisualCell.tscn");
+					(PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualCells/VisualCell.tscn");
 			}
 
 			// Make new sprites.

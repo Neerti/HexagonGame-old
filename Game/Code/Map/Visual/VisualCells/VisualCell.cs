@@ -38,43 +38,43 @@ namespace Hexagon.Map.Visual.VisualCells
 			GD.Print(@event);
 		}
 
-		public void SwitchSprite(Hex.TileTypes tileTypes)
+		public void SwitchSprite(LogicalCell.TileTypes tileTypes)
 		{
 			switch (tileTypes)
 			{
-				case Hex.TileTypes.Grass:
+				case LogicalCell.TileTypes.Grass:
 					_baseColor = new Color("#82bf40");
 					break;
 				
-				case Hex.TileTypes.Rock:
+				case LogicalCell.TileTypes.Rock:
 					_baseColor = new Color("#7d7d7d");
 					break;
 				
-				case Hex.TileTypes.Snow:
+				case LogicalCell.TileTypes.Snow:
 					_baseColor = new Color("#d6f2ff");
 					break;
 				
-				case Hex.TileTypes.Forest:
+				case LogicalCell.TileTypes.Forest:
 					_baseColor = new Color("#4b6f25");
 					break;
 				
-				case Hex.TileTypes.BeachSand:
+				case LogicalCell.TileTypes.BeachSand:
 					_baseColor = new Color("#dcd0c3");
 					break;
 				
-				case Hex.TileTypes.ShallowSaltWater:
+				case LogicalCell.TileTypes.ShallowSaltWater:
 					_baseColor = new Color("#85cacc");
 					break;
-				case Hex.TileTypes.DeepSaltWater:
+				case LogicalCell.TileTypes.DeepSaltWater:
 					_baseColor = new Color("#456e95");
 					break;
-				case Hex.TileTypes.ShallowFreshWater:
+				case LogicalCell.TileTypes.ShallowFreshWater:
 					_baseColor = new Color("#85b5eb");
 					break;
-				case Hex.TileTypes.DeepFreshWater:
+				case LogicalCell.TileTypes.DeepFreshWater:
 					_baseColor = new Color("#2a7ed6");
 					break;
-				case Hex.TileTypes.Base:
+				case LogicalCell.TileTypes.Base:
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(tileTypes), tileTypes, null);

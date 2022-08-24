@@ -61,7 +61,7 @@ namespace Hexagon
 
 					float height_value = height_noise.GetNoise3d(noise_x, noise_y, noise_z);
 
-					Hex tile = grid.GetHex(x, y);
+					LogicalCell tile = grid.GetHex(x, y);
 					tile.Height = height_value;
 
 

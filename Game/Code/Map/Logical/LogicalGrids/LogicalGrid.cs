@@ -11,7 +11,7 @@ namespace Hexagon
 	{
 		public readonly int SizeX;
 		public readonly int SizeY;
-		private Hex[,] _grid;
+		private LogicalCell[,] _grid;
 
 		public LogicalGrid(int new_size_x, int new_size_y)
 		{
@@ -20,7 +20,7 @@ namespace Hexagon
 			MakeEmptyGrid();
 		}
 
-		public Hex GetHex(int x, int y)
+		public LogicalCell GetHex(int x, int y)
 		{
 			if(x < 0 || x > SizeX - 1)
 			{
@@ -33,7 +33,7 @@ namespace Hexagon
 			return _grid[x,y];
 		}
 
-		public Hex GetHex(VectorHex v)
+		public LogicalCell GetHex(VectorHex v)
 		{
 			return GetHex(v.X, v.Y);
 		}
@@ -56,7 +56,7 @@ namespace Hexagon
 			return HasHex(v.X, v.Y);
 		}
 
-		public Hex GetHexByOffset(int x, int y, int x_offset, int y_offset)
+		public LogicalCell GetHexByOffset(int x, int y, int x_offset, int y_offset)
 		{
 			if(HasHex(x + x_offset, y + y_offset))
 			{
@@ -65,7 +65,7 @@ namespace Hexagon
 			return null;
 		}
 		
-		public Hex GetHexByOffset(Hex tile, int x_offset, int y_offset)
+		public LogicalCell GetHexByOffset(LogicalCell tile, int x_offset, int y_offset)
 		{
 			return GetHexByOffset(tile.Position.X, tile.Position.Y, x_offset, y_offset);
 		}
@@ -75,12 +75,12 @@ namespace Hexagon
 		// This will overwrite and completely wipe out any existing map.
 		private void MakeEmptyGrid()
 		{
-			_grid = new Hex[SizeX, SizeY];
+			_grid = new LogicalCell[SizeX, SizeY];
 			for (var x = 0; x < SizeX; x++)
 			{
 				for (var y = 0; y < SizeY; y++)
 				{
-					_grid[x, y] = new Hex(x, y);
+					_grid[x, y] = new LogicalCell(x, y);
 				}
 			}
 		}
@@ -118,37 +118,37 @@ namespace Hexagon
 					float value = tile.Height;
 
 					// TESTING
-					var chosen_tile_type = Hex.TileTypes.Base;
+					var chosen_tile_type = LogicalCell.TileTypes.Base;
 
 					// This is super ugly and hopefully temporary.
 					float sea_level_offset = 0.1f;
 					if(value > (0.25f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileTypes.Snow;
+						chosen_tile_type = LogicalCell.TileTypes.Snow;
 					}
 					else if(value > (0.20f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileTypes.Rock;
+						chosen_tile_type = LogicalCell.TileTypes.Rock;
 					}
 					else if(value > (0.15f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileTypes.Forest;
+						chosen_tile_type = LogicalCell.TileTypes.Forest;
 					}
 					else if(value > (0.05f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileTypes.Grass;
+						chosen_tile_type = LogicalCell.TileTypes.Grass;
 					}
 					else if(value > (0f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileTypes.BeachSand;
+						chosen_tile_type = LogicalCell.TileTypes.BeachSand;
 					}
 					else if(value > (-0.15f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileTypes.ShallowSaltWater;
+						chosen_tile_type = LogicalCell.TileTypes.ShallowSaltWater;
 					}
 					else
 					{
-						chosen_tile_type = Hex.TileTypes.DeepSaltWater;
+						chosen_tile_type = LogicalCell.TileTypes.DeepSaltWater;
 					}
 					tile.TileType = chosen_tile_type;
 				}
@@ -170,25 +170,25 @@ namespace Hexagon
 					// TileTypes should probably be made into their own objects.
 					switch (tile.TileType)
 					{
-						case Hex.TileTypes.Snow:
+						case LogicalCell.TileTypes.Snow:
 							chosen_color = Colors.LightBlue;
 							break;
-						case Hex.TileTypes.Rock:
+						case LogicalCell.TileTypes.Rock:
 							chosen_color = Colors.DimGray;
 							break;
-						case Hex.TileTypes.Forest:
+						case LogicalCell.TileTypes.Forest:
 							chosen_color = Colors.DarkGreen;
 							break;
-						case Hex.TileTypes.Grass:
+						case LogicalCell.TileTypes.Grass:
 							chosen_color = Colors.Limegreen;
 							break;
-						case Hex.TileTypes.BeachSand:
+						case LogicalCell.TileTypes.BeachSand:
 							chosen_color = Colors.PaleGoldenrod;
 							break;
-						case Hex.TileTypes.ShallowSaltWater:
+						case LogicalCell.TileTypes.ShallowSaltWater:
 							chosen_color = Colors.MediumBlue;
 							break;
-						case Hex.TileTypes.DeepSaltWater:
+						case LogicalCell.TileTypes.DeepSaltWater:
 							chosen_color = Colors.NavyBlue;
 							break;	
 						default:
@@ -234,10 +234,10 @@ namespace Hexagon
 			return img;
 		}
 
-		public int GetHexBiomeBitmask(Hex tile)
+		public int GetHexBiomeBitmask(LogicalCell tile)
 		{
 			int result = 0;
-			Hex top_tile, bottom_tile, left_tile, right_tile;
+			LogicalCell top_tile, bottom_tile, left_tile, right_tile;
 			top_tile = GetHexByOffset(tile,  0, -1);
 			bottom_tile = GetHexByOffset(tile,  0,  1);
 			left_tile =  GetHexByOffset(tile, -1,  0);

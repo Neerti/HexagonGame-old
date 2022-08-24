@@ -47,7 +47,7 @@ namespace Hexagon.Map.Visual.VisualChunks.HybridChunks
 						VisualChunk.ChunkSize * chunkX + i,
 						VisualChunk.ChunkSize * chunkY + j
 					);
-					newSprite.SwitchSprite(hex.tile_type);
+					newSprite.SwitchSprite(hex.TileType);
 				}
 			}
 			// Turning it back on appears to trigger an immediate sort, which is good.

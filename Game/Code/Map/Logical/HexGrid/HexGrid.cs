@@ -120,39 +120,39 @@ namespace Hexagon
 					float value = tile.Height;
 
 					// TESTING
-					var chosen_tile_type = Hex.TileType.BASE;
+					var chosen_tile_type = Hex.TileTypes.Base;
 
 					// This is super ugly and hopefully temporary.
 					float sea_level_offset = 0.1f;
 					if(value > (0.25f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileType.SNOW;
+						chosen_tile_type = Hex.TileTypes.Snow;
 					}
 					else if(value > (0.20f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileType.ROCK;
+						chosen_tile_type = Hex.TileTypes.Rock;
 					}
 					else if(value > (0.15f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileType.FOREST;
+						chosen_tile_type = Hex.TileTypes.Forest;
 					}
 					else if(value > (0.05f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileType.GRASS;
+						chosen_tile_type = Hex.TileTypes.Grass;
 					}
 					else if(value > (0f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileType.BEACH_SAND;
+						chosen_tile_type = Hex.TileTypes.BeachSand;
 					}
 					else if(value > (-0.15f + sea_level_offset))
 					{
-						chosen_tile_type = Hex.TileType.SHALLOW_SALT_WATER;
+						chosen_tile_type = Hex.TileTypes.ShallowSaltWater;
 					}
 					else
 					{
-						chosen_tile_type = Hex.TileType.DEEP_SALT_WATER;
+						chosen_tile_type = Hex.TileTypes.DeepSaltWater;
 					}
-					tile.tile_type = chosen_tile_type;
+					tile.TileType = chosen_tile_type;
 				}
 			}
 		}
@@ -170,27 +170,27 @@ namespace Hexagon
 					var chosen_color = Colors.White;
 					var tile = _grid[x,y];
 					// TileTypes should probably be made into their own objects.
-					switch (tile.tile_type)
+					switch (tile.TileType)
 					{
-						case Hex.TileType.SNOW:
+						case Hex.TileTypes.Snow:
 							chosen_color = Colors.LightBlue;
 							break;
-						case Hex.TileType.ROCK:
+						case Hex.TileTypes.Rock:
 							chosen_color = Colors.DimGray;
 							break;
-						case Hex.TileType.FOREST:
+						case Hex.TileTypes.Forest:
 							chosen_color = Colors.DarkGreen;
 							break;
-						case Hex.TileType.GRASS:
+						case Hex.TileTypes.Grass:
 							chosen_color = Colors.Limegreen;
 							break;
-						case Hex.TileType.BEACH_SAND:
+						case Hex.TileTypes.BeachSand:
 							chosen_color = Colors.PaleGoldenrod;
 							break;
-						case Hex.TileType.SHALLOW_SALT_WATER:
+						case Hex.TileTypes.ShallowSaltWater:
 							chosen_color = Colors.MediumBlue;
 							break;
-						case Hex.TileType.DEEP_SALT_WATER:
+						case Hex.TileTypes.DeepSaltWater:
 							chosen_color = Colors.NavyBlue;
 							break;	
 						default:
@@ -244,19 +244,19 @@ namespace Hexagon
 			bottom_tile = GetHexByOffset(tile,  0,  1);
 			left_tile =  GetHexByOffset(tile, -1,  0);
 			right_tile =  GetHexByOffset(tile,  1,  0);
-			if(top_tile?.tile_type == tile.tile_type)
+			if(top_tile?.TileType == tile.TileType)
 			{
 				result += 1;
 			}
-			if(right_tile?.tile_type == tile.tile_type)
+			if(right_tile?.TileType == tile.TileType)
 			{
 				result += 2;
 			}
-			if(bottom_tile?.tile_type == tile.tile_type)
+			if(bottom_tile?.TileType == tile.TileType)
 			{
 				result += 4;
 			}
-			if(left_tile?.tile_type == tile.tile_type)
+			if(left_tile?.TileType == tile.TileType)
 			{
 				result += 8;
 			}

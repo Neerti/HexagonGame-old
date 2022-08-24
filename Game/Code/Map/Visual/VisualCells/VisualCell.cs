@@ -38,46 +38,46 @@ namespace Hexagon.Map.Visual.VisualCells
 			GD.Print(@event);
 		}
 
-		public void SwitchSprite(Hex.TileType tileType)
+		public void SwitchSprite(Hex.TileTypes tileTypes)
 		{
-			switch (tileType)
+			switch (tileTypes)
 			{
-				case Hex.TileType.GRASS:
+				case Hex.TileTypes.Grass:
 					_baseColor = new Color("#82bf40");
 					break;
 				
-				case Hex.TileType.ROCK:
+				case Hex.TileTypes.Rock:
 					_baseColor = new Color("#7d7d7d");
 					break;
 				
-				case Hex.TileType.SNOW:
+				case Hex.TileTypes.Snow:
 					_baseColor = new Color("#d6f2ff");
 					break;
 				
-				case Hex.TileType.FOREST:
+				case Hex.TileTypes.Forest:
 					_baseColor = new Color("#4b6f25");
 					break;
 				
-				case Hex.TileType.BEACH_SAND:
+				case Hex.TileTypes.BeachSand:
 					_baseColor = new Color("#dcd0c3");
 					break;
 				
-				case Hex.TileType.SHALLOW_SALT_WATER:
+				case Hex.TileTypes.ShallowSaltWater:
 					_baseColor = new Color("#85cacc");
 					break;
-				case Hex.TileType.DEEP_SALT_WATER:
+				case Hex.TileTypes.DeepSaltWater:
 					_baseColor = new Color("#456e95");
 					break;
-				case Hex.TileType.SHALLOW_FRESH_WATER:
+				case Hex.TileTypes.ShallowFreshWater:
 					_baseColor = new Color("#85b5eb");
 					break;
-				case Hex.TileType.DEEP_FRESH_WATER:
+				case Hex.TileTypes.DeepFreshWater:
 					_baseColor = new Color("#2a7ed6");
 					break;
-				case Hex.TileType.BASE:
+				case Hex.TileTypes.Base:
 					break;
 				default:
-					throw new ArgumentOutOfRangeException(nameof(tileType), tileType, null);
+					throw new ArgumentOutOfRangeException(nameof(tileTypes), tileTypes, null);
 			}
 			UpdateColor();
 		}

@@ -23,20 +23,20 @@ namespace Hexagon
 
 		public int CartesianBiomeBitmask = 0;
 		
-		public TileType tile_type = TileType.BASE;
+		public TileTypes TileType = TileTypes.Base;
 
-		public enum TileType
+		public enum TileTypes
 		{
-			BASE = 0,
-			GRASS = 1,
-			SHALLOW_SALT_WATER = 2,
-			DEEP_SALT_WATER = 3,
-			SHALLOW_FRESH_WATER = 4,
-			DEEP_FRESH_WATER = 5,
-			BEACH_SAND = 6,
-			FOREST = 7,
-			ROCK = 8,
-			SNOW = 9
+			Base = 0,
+			Grass = 1,
+			ShallowSaltWater = 2,
+			DeepSaltWater = 3,
+			ShallowFreshWater = 4,
+			DeepFreshWater = 5,
+			BeachSand = 6,
+			Forest = 7,
+			Rock = 8,
+			Snow = 9
 		}
 
 		public Hex(int new_x, int new_y)

@@ -1,20 +1,21 @@
 using System;
 using Godot;
 using Hexagon.Map.Logical.LogicalCells;
+using JetBrains.Annotations;
 
 namespace Hexagon.Map.Visual.VisualCells
 {
+	[UsedImplicitly]
 	public class VisualCell : Sprite
 	{
 		private Color _baseColor = new Color(1f, 1f, 1f);
-		private bool _mousedOver = false;
+		private bool _mousedOver;
 		
 		public override void _Ready()
 		{
 			var collision = GetNode<Area2D>("Area2D");
 			collision.Connect("mouse_entered", this, nameof(OnMouseEntered));
 			collision.Connect("mouse_exited", this, nameof(OnMouseExited));
-			//collision.Connect("input_event", this, nameof(OnInputEvent));
 		}
 
 		public void OnMouseEntered()
@@ -29,14 +30,9 @@ namespace Hexagon.Map.Visual.VisualCells
 			UpdateColor();
 		}
 
-		public void UpdateColor()
+		private void UpdateColor()
 		{
 			Modulate = _mousedOver ? _baseColor.Darkened(0.2f) : _baseColor;
-		}
-
-		public void OnInputEvent(Node thing, InputEvent @event, int otherThing)
-		{
-			GD.Print(@event);
 		}
 
 		public void SwitchSprite(LogicalCell.TileTypes tileTypes)

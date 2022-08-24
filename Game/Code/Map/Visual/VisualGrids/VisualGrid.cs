@@ -6,7 +6,7 @@ namespace Hexagon.Map.Visual.VisualGrids
 {
 	public class VisualGrid : Node2D
 	{
-		private HexGrid Map;
+		private LogicalGrid Map;
 
 		public override void _Ready()
 		{

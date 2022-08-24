@@ -7,7 +7,7 @@ namespace Hexagon.Map.Visual.VisualChunks.HybridChunks
 	{
 		private PackedScene _packedHexagonSprite;
 
-		public void DrawChunk(HexGrid map, int chunkX, int chunkY)
+		public void DrawChunk(LogicalGrid map, int chunkX, int chunkY)
 		{
 			// Not sure if it sorts once per frame or once every time the tree changes.
 			// Just in case, don't do anything until the end.

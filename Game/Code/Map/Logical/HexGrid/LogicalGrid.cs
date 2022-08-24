@@ -10,13 +10,13 @@ namespace Hexagon
 	/// <summary>
 	/// A container for logical hexagon objects.
 	/// </summary>
-	public class HexGrid
+	public class LogicalGrid
 	{
 		public readonly int SizeX;
 		public readonly int SizeY;
 		private Hex[,] _grid;
 
-		public HexGrid(int new_size_x, int new_size_y)
+		public LogicalGrid(int new_size_x, int new_size_y)
 		{
 			SizeX = new_size_x;
 			SizeY = new_size_y;

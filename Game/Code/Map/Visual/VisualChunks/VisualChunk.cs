@@ -17,7 +17,7 @@ namespace Hexagon.Map.Visual.VisualChunks
 		/// </summary>
 		public int ChunkY { get; protected set; }
 		
-		public HexGrid Map { get; protected set; }
+		public LogicalGrid Map { get; protected set; }
 		
 		/// <summary>
 		/// Assumed width of the individual sprite inside of a chunk, used to tile the sprites correctly.
@@ -53,7 +53,7 @@ namespace Hexagon.Map.Visual.VisualChunks
 		
 		public static int ChunkVisibleHeight = ChunkHeight + (SpriteHeight * 3);
 
-		public void SetUp(HexGrid map, int newChunkX, int newChunkY)
+		public void SetUp(LogicalGrid map, int newChunkX, int newChunkY)
 		{
 			Map = map;
 			ChunkX = newChunkX;

@@ -20,15 +20,15 @@ namespace Hexagon
 			heat_noise.Seed = new_seed+1;
 		}
 
-		public HexGrid GenerateNewMap(int new_x, int new_y)
+		public LogicalGrid GenerateNewMap(int new_x, int new_y)
 		{
-			var new_grid = new HexGrid(new_x, new_y);
+			var new_grid = new LogicalGrid(new_x, new_y);
 			ApplyNoise(new_grid);
 			new_grid.AssignBiomesToHexes();
 			return new_grid;
 		}
 
-		private void ApplyNoise(HexGrid grid)
+		private void ApplyNoise(LogicalGrid grid)
 		{
 			var img = height_noise.GetImage(grid.SizeX, grid.SizeY);
 			img.SavePng("res://test.png");

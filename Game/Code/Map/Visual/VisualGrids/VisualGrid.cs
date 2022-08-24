@@ -1,8 +1,8 @@
 using Godot;
-using Hexagon.Map.VisualMap.VisualChunks;
-using Hexagon.Map.VisualMap.VisualChunks.HybridChunks;
+using Hexagon.Map.Visual.VisualChunks;
+using Hexagon.Map.Visual.VisualChunks.HybridChunks;
 
-namespace Hexagon.Map.VisualMap.VisualGrids
+namespace Hexagon.Map.Visual.VisualGrids
 {
 	public class VisualGrid : Node2D
 	{
@@ -20,9 +20,9 @@ namespace Hexagon.Map.VisualMap.VisualGrids
 		{
 			var _packedChunk = (PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualChunks/HybridChunks/HybridChunk.tscn");
 			
-			for (int i = 0; i < Map.SizeX / VisualChunks.VisualChunk.ChunkSize; i++)
+			for (int i = 0; i < Map.SizeX / VisualChunk.ChunkSize; i++)
 			{
-				for (int j = 0; j < Map.SizeY / VisualChunks.VisualChunk.ChunkSize; j++)
+				for (int j = 0; j < Map.SizeY / VisualChunk.ChunkSize; j++)
 				{
 					//var newUnloadedChunk = MakeUnloadedChunk(Map, i, j);
 					var newChunk = (HybridChunk)_packedChunk.Instance();

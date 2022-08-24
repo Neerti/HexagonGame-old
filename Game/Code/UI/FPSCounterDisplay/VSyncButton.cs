@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace Hexagon.Map.MapDisplays
+namespace Hexagon.Map.Visual.VisualCells
 {
 	public class VSyncButton : CheckButton
 	{

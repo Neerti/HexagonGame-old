@@ -1,7 +1,7 @@
 using Godot;
-using Hexagon.Map.MapDisplays;
+using Hexagon.Map.Visual.VisualCells;
 
-namespace Hexagon.Map.VisualMap.VisualChunks.LoadedChunks
+namespace Hexagon.Map.Visual.VisualChunks.HybridChunks
 {
 	public class SpriteGrid : YSort
 	{

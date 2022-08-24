@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Hexagon.Map.VisualMap.VisualChunks
+namespace Hexagon.Map.Visual.VisualChunks
 {
 	public class ChunkVisibilityNotifier : VisibilityNotifier2D
 	{

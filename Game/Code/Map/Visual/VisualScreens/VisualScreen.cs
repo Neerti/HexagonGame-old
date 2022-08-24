@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Hexagon.Map.VisualMap.VisualScreens
+namespace Hexagon.Map.Visual.VisualScreens
 {
 	// Click-drag code adapted from code written by "AlienBuchner" at https://godotengine.org/qa/46892/would-map-navigation-camera-with-middle-mouse#a52576.
 	public class VisualScreen : Camera2D

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using static Godot.Performance;
 
-namespace Hexagon.Map.MapDisplays
+namespace Hexagon.Map.Visual.VisualCells
 {
 	public class FPSLabel : Label
 	{

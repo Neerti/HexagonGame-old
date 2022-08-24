@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-namespace Hexagon.Map.MapDisplays
+namespace Hexagon.Map.Visual.VisualCells
 {
 	public class VisualCell : Sprite
 	{

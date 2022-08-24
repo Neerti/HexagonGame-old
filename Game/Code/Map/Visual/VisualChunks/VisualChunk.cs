@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Hexagon.Map.VisualMap.VisualChunks
+namespace Hexagon.Map.Visual.VisualChunks
 {
 	/// <summary>
 	/// Base class for chunks that react to being on or off screen.

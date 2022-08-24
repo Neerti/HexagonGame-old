@@ -1,8 +1,8 @@
 using System;
 using Godot;
-using Hexagon.Map.VisualMap.VisualChunks.LoadedChunks;
+using Hexagon.Map.Visual.VisualChunks.HybridChunks;
 
-namespace Hexagon.Map.VisualMap.VisualChunks.HybridChunks
+namespace Hexagon.Map.Visual.VisualChunks.HybridChunks
 {
 	public class HybridChunk : VisualChunk
 	{

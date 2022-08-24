@@ -1,4 +1,5 @@
 using Godot;
+using Hexagon.Map.Logical.LogicalCells;
 
 namespace Hexagon
 {

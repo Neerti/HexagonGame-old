@@ -1,13 +1,11 @@
-using Hexagon.Map.Logical.VectorHex;
-
-namespace Hexagon
+namespace Hexagon.Map.Logical.LogicalCells
 {
 	/// <summary>
 	/// Object which represents an individual hexagon, a cell for the logical hex grid.
 	/// </summary>
 	public class LogicalCell
 	{
-		public VectorHex Position;
+		public VectorHex.VectorHex Position;
 		
 		public float Height;
 		public float Humidity;
@@ -37,7 +35,7 @@ namespace Hexagon
 
 		public LogicalCell(int new_x, int new_y)
 		{
-			Position = new VectorHex(new_x, new_y);
+			Position = new VectorHex.VectorHex(new_x, new_y);
 		}
 
 	}

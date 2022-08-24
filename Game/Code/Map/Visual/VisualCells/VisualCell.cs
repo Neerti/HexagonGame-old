@@ -1,5 +1,6 @@
 using System;
 using Godot;
+using Hexagon.Map.Logical.LogicalCells;
 
 namespace Hexagon.Map.Visual.VisualCells
 {

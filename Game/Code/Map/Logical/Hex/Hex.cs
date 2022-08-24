@@ -21,8 +21,6 @@ namespace Hexagon
 		// If false (and Explored is true,) the hex will be darkened.
 		public bool Observed = false;
 
-		public int CartesianBiomeBitmask = 0;
-		
 		public TileTypes TileType = TileTypes.Base;
 
 		public enum TileTypes

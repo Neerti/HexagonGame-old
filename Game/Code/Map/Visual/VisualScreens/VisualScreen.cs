@@ -1,8 +1,10 @@
 using Godot;
+using JetBrains.Annotations;
 
 namespace Hexagon.Map.Visual.VisualScreens
 {
 	// Click-drag code adapted from code written by "AlienBuchner" at https://godotengine.org/qa/46892/would-map-navigation-camera-with-middle-mouse#a52576.
+	[UsedImplicitly]
 	public class VisualScreen : Camera2D
 	{
 		private const float BaseMovementSpeed = 400f;
@@ -54,7 +56,7 @@ namespace Hexagon.Map.Visual.VisualScreens
 					speed *= 2;
 				}
 			
-				Position += (direction.Normalized() * speed * delta);
+				Position += direction.Normalized() * speed * delta;
 			}
 			
 		}

@@ -20,9 +20,9 @@ namespace Hexagon.Map.Visual.VisualGrids
 		{
 			var packedChunk = (PackedScene) ResourceLoader.Load("res://Code/Map/Visual/VisualChunks/HybridChunks/HybridChunk.tscn");
 			
-			for (int i = 0; i < _map.SizeX / VisualChunk.ChunkSize; i++)
+			for (var i = 0; i < _map.SizeX / VisualChunk.ChunkSize; i++)
 			{
-				for (int j = 0; j < _map.SizeY / VisualChunk.ChunkSize; j++)
+				for (var j = 0; j < _map.SizeY / VisualChunk.ChunkSize; j++)
 				{
 					var newChunk = (HybridChunk)packedChunk.Instance();
 

@@ -67,11 +67,16 @@ namespace Hexagon.Map.Visual.VisualCells
 					break;
 				
 				case LogicalCell.TileTypes.ShallowSaltWater:
-					_baseColor = new Color("#85cacc");
+					Texture = (Texture) ResourceLoader.Load(
+						"res://Code/Map/Visual/VisualCells/Sprites/liquid_hexagon_64.png");
+					_baseColor = new Color("#85cacc"){a = .75f};
 					break;
 				
 				case LogicalCell.TileTypes.DeepSaltWater:
-					_baseColor = new Color("#456e95");
+					Texture = (Texture) ResourceLoader.Load(
+						"res://Code/Map/Visual/VisualCells/Sprites/liquid_hexagon_64.png");
+					_baseColor = new Color("#456e95"){ a = .75f};
+
 					break;
 				
 				case LogicalCell.TileTypes.ShallowFreshWater:

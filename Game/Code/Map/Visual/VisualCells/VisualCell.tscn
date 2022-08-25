@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Code/Map/Visual/VisualCells/Sprites/generic_hexagon_64.png" type="Texture" id=1]
 [ext_resource path="res://Code/Map/Visual/VisualCells/VisualCell.cs" type="Script" id=2]
+[ext_resource path="res://Code/Map/Visual/VisualCells/Sprites/hexagon_outline64.png" type="Texture" id=3]
 
 [node name="VisualCell" type="Sprite"]
 texture = ExtResource( 1 )
 offset = Vector2( 32, 24 )
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Area2D" type="Area2D" parent="."]
 monitoring = false
@@ -15,3 +19,9 @@ monitorable = false
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 position = Vector2( 32, 24 )
 polygon = PoolVector2Array( -16, -23, 16, -23, 31, -8, 16, 7, -16, 7, -31, -8 )
+
+[node name="OutlineSprite" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( 0, -8 )

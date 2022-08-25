@@ -1,6 +1,8 @@
 using System;
 using Godot;
+using Hexagon.Globals;
 using Hexagon.Map.Logical.LogicalCells;
+using Hexagon.Map.Logical.Terrains;
 using Hexagon.Map.Logical.VectorHex;
 
 namespace Hexagon
@@ -86,26 +88,6 @@ namespace Hexagon
 			}
 		}
 
-		public Image GenerateHeightNoiseImage()
-		{
-			var img = new Image();
-			img.Create(SizeX, SizeY, false, Image.Format.Rgba8);
-			img.Lock();
-			for(var x = 0; x < SizeX; x++)
-			{
-				for(var y = 0; y < SizeY; y++)
-				{
-					float value = _grid[x,y].Height;
-
-					var chosen_color = Colors.Black;
-					chosen_color = chosen_color.LinearInterpolate(Colors.White, value);
-					img.SetPixel(x, y, chosen_color);
-				}
-			}
-			img.Unlock();
-			return img;
-		}
-
 		public void AssignBiomesToHexes()
 		{
 			for(var x = 0; x < SizeX; x++)
@@ -116,150 +98,44 @@ namespace Hexagon
 					// Someday it will also incorporate temperature and humidity.
 
 					var tile = _grid[x,y];
-					float value = tile.Height;
+					var value = tile.Height;
 
 					// TESTING
-					var chosen_tile_type = LogicalCell.TileTypes.Base;
+					var chosen_terrain_type = TerrainKinds.Base;
 
 					// This is super ugly and hopefully temporary.
-					float sea_level_offset = 0.1f;
-					if(value > (0.25f + sea_level_offset))
+					const float seaLevelOffset = 0.1f;
+					if(value > (0.25f + seaLevelOffset))
 					{
-						chosen_tile_type = LogicalCell.TileTypes.Snow;
+						chosen_terrain_type = TerrainKinds.Snow;
 					}
-					else if(value > (0.20f + sea_level_offset))
+					else if(value > (0.20f + seaLevelOffset))
 					{
-						chosen_tile_type = LogicalCell.TileTypes.Rock;
+						chosen_terrain_type = TerrainKinds.Rock;
 					}
-					else if(value > (0.15f + sea_level_offset))
+					else if(value > (0.15f + seaLevelOffset))
 					{
-						chosen_tile_type = LogicalCell.TileTypes.Forest;
+						chosen_terrain_type = TerrainKinds.Forest;
 					}
-					else if(value > (0.05f + sea_level_offset))
+					else if(value > (0.05f + seaLevelOffset))
 					{
-						chosen_tile_type = LogicalCell.TileTypes.Grass;
+						chosen_terrain_type = TerrainKinds.Grass;
 					}
-					else if(value > (0f + sea_level_offset))
+					else if(value > (0f + seaLevelOffset))
 					{
-						chosen_tile_type = LogicalCell.TileTypes.BeachSand;
+						chosen_terrain_type = TerrainKinds.BeachSand;
 					}
-					else if(value > (-0.15f + sea_level_offset))
+					else if(value > (-0.15f + seaLevelOffset))
 					{
-						chosen_tile_type = LogicalCell.TileTypes.ShallowSaltWater;
+						chosen_terrain_type = TerrainKinds.ShallowSaltWater;
 					}
 					else
 					{
-						chosen_tile_type = LogicalCell.TileTypes.DeepSaltWater;
+						chosen_terrain_type = TerrainKinds.DeepSaltWater;
 					}
-					tile.TileType = chosen_tile_type;
+					tile.Terrain = Singleton.AllTerrains[chosen_terrain_type];
 				}
 			}
-		}
-
-		public Image GenerateMapImage()
-		{
-			var img = new Image();
-			img.Create(SizeX, SizeY, false, Image.Format.Rgba8);
-			img.Lock();
-
-			for(var x = 0; x < SizeX; x++)
-			{
-				for(var y = 0; y < SizeY; y++)
-				{
-					var chosen_color = Colors.White;
-					var tile = _grid[x,y];
-					// TileTypes should probably be made into their own objects.
-					switch (tile.TileType)
-					{
-						case LogicalCell.TileTypes.Snow:
-							chosen_color = Colors.LightBlue;
-							break;
-						case LogicalCell.TileTypes.Rock:
-							chosen_color = Colors.DimGray;
-							break;
-						case LogicalCell.TileTypes.Forest:
-							chosen_color = Colors.DarkGreen;
-							break;
-						case LogicalCell.TileTypes.Grass:
-							chosen_color = Colors.Limegreen;
-							break;
-						case LogicalCell.TileTypes.BeachSand:
-							chosen_color = Colors.PaleGoldenrod;
-							break;
-						case LogicalCell.TileTypes.ShallowSaltWater:
-							chosen_color = Colors.MediumBlue;
-							break;
-						case LogicalCell.TileTypes.DeepSaltWater:
-							chosen_color = Colors.NavyBlue;
-							break;	
-						default:
-							chosen_color = Colors.Black;
-							break;
-					}
-
-					if(GetHexBiomeBitmask(tile) != 15)
-					{
-						chosen_color = chosen_color.Darkened(0.5f);
-					}
-
-					img.SetPixel(x, y, chosen_color);
-				}
-			}
-			img.Unlock();
-			return img;
-		}
-
-		public Image GenerateHeatMap()
-		{
-			var img = new Image();
-			img.Create(SizeX, SizeY, false, Image.Format.Rgba8);
-			img.Lock();
-
-			for(var x = 0; x < SizeX; x++)
-			{
-				for(var y = 0; y < SizeY; y++)
-				{
-					var chosen_color = Colors.Blue;
-					var tile = _grid[x,y];
-					chosen_color = chosen_color.LinearInterpolate(Colors.Red, tile.Temperature);
-
-					if(GetHexBiomeBitmask(tile) != 15)
-					{
-						chosen_color = chosen_color.Darkened(0.5f);
-					}
-					img.SetPixel(x, y, chosen_color);
-					
-				}
-			}
-			img.Unlock();
-			return img;
-		}
-
-		public int GetHexBiomeBitmask(LogicalCell tile)
-		{
-			int result = 0;
-			LogicalCell top_tile, bottom_tile, left_tile, right_tile;
-			top_tile = GetHexByOffset(tile,  0, -1);
-			bottom_tile = GetHexByOffset(tile,  0,  1);
-			left_tile =  GetHexByOffset(tile, -1,  0);
-			right_tile =  GetHexByOffset(tile,  1,  0);
-			if(top_tile?.TileType == tile.TileType)
-			{
-				result += 1;
-			}
-			if(right_tile?.TileType == tile.TileType)
-			{
-				result += 2;
-			}
-			if(bottom_tile?.TileType == tile.TileType)
-			{
-				result += 4;
-			}
-			if(left_tile?.TileType == tile.TileType)
-			{
-				result += 8;
-			}
-			return result;
 		}
 
 	}

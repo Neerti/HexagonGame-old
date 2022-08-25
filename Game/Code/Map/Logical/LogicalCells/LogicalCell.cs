@@ -1,3 +1,5 @@
+using Hexagon.Map.Logical.Terrains;
+
 namespace Hexagon.Map.Logical.LogicalCells
 {
 	/// <summary>
@@ -10,28 +12,23 @@ namespace Hexagon.Map.Logical.LogicalCells
 		public float Height;
 		public float Humidity;
 		public float Temperature;
-
-		// If false, the player cannot see the hex at all.
+		
+		/// <summary>
+		/// If false, the player cannot see the hex at all.
+		/// This is not implemented.
+		/// </summary>
 		public bool Explored = false;
-
-		// If false (and Explored is true,) the hex will be darkened.
+		
+		/// <summary>
+		/// If false, and <see cref="Explored"/> is true, the hex will be darkened.
+		/// This is not implemented.
+		/// </summary>
 		public bool Observed = false;
 
-		public TileTypes TileType = TileTypes.Base;
-
-		public enum TileTypes
-		{
-			Base = 0,
-			Grass = 1,
-			ShallowSaltWater = 2,
-			DeepSaltWater = 3,
-			ShallowFreshWater = 4,
-			DeepFreshWater = 5,
-			BeachSand = 6,
-			Forest = 7,
-			Rock = 8,
-			Snow = 9
-		}
+		/// <summary>
+		/// Reference to one of the <see cref="Terrain"/> singletons that this cell is.
+		/// </summary>
+		public Terrain Terrain;
 
 		public LogicalCell(int new_x, int new_y)
 		{

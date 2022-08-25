@@ -10,12 +10,19 @@ namespace Hexagon.Map.Visual.VisualCells
 	{
 		private Color _baseColor = new Color(1f, 1f, 1f);
 		private bool _mousedOver;
+		private LogicalCell _cell;
 		
 		public override void _Ready()
 		{
 			var collision = GetNode<Area2D>("Area2D");
 			collision.Connect("mouse_entered", this, nameof(OnMouseEntered));
 			collision.Connect("mouse_exited", this, nameof(OnMouseExited));
+		}
+
+		public void SetUp(LogicalCell newCell)
+		{
+			_cell = newCell;
+			SwitchSprite(_cell.TileType);
 		}
 
 		public void OnMouseEntered()
@@ -35,7 +42,7 @@ namespace Hexagon.Map.Visual.VisualCells
 			Modulate = _mousedOver ? _baseColor.Darkened(0.2f) : _baseColor;
 		}
 
-		public void SwitchSprite(LogicalCell.TileTypes tileTypes)
+		private void SwitchSprite(LogicalCell.TileTypes tileTypes)
 		{
 			switch (tileTypes)
 			{
@@ -62,17 +69,22 @@ namespace Hexagon.Map.Visual.VisualCells
 				case LogicalCell.TileTypes.ShallowSaltWater:
 					_baseColor = new Color("#85cacc");
 					break;
+				
 				case LogicalCell.TileTypes.DeepSaltWater:
 					_baseColor = new Color("#456e95");
 					break;
+				
 				case LogicalCell.TileTypes.ShallowFreshWater:
 					_baseColor = new Color("#85b5eb");
 					break;
+				
 				case LogicalCell.TileTypes.DeepFreshWater:
 					_baseColor = new Color("#2a7ed6");
 					break;
+				
 				case LogicalCell.TileTypes.Base:
 					break;
+				
 				default:
 					throw new ArgumentOutOfRangeException(nameof(tileTypes), tileTypes, null);
 			}

@@ -68,11 +68,17 @@ namespace Hexagon.Items
 		// TODO sprite here.
 
 		/// <summary>
+		/// Determines the max quantity allowed inside of a <see cref="ItemInstance"/>.
+		/// If 0, there is no limit.
+		/// </summary>
+		public int StackSize { get; protected set; } = int.MaxValue;
+
+		/// <summary>
 		/// Used to categorize different kinds of <see cref="Item"/>s together.
 		/// </summary>
 		protected ItemCategory Category { get; set; } = ItemCategory.General;
 
-		protected float Volume { get; set; } = 1.0f;
+		public float Volume { get; protected set; } = 1.0f;
 
 		/// <summary>
 		/// Some items can fulfill specific <see cref="Need"/>s that a <see cref="Person"/> may have,

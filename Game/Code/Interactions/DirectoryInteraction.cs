@@ -47,6 +47,14 @@ namespace Hexagon.Interactions
 		}
 	}
 
+	public class MainDirectoryInteraction : DirectoryInteraction
+	{
+		public MainDirectoryInteraction()
+		{
+			SubInteractionTypes.Add(typeof(Foraging));
+		}
+	}
+	
 	public class Sustenance : DirectoryInteraction
 	{
 		public Sustenance()

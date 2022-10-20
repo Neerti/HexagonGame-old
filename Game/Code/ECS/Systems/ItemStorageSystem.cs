@@ -69,10 +69,7 @@ namespace Hexagon.ECS.Systems
 			}
 			
 			component.Items.AddRange(newItemInstances);
-				
-				
 			
-
 		}
 
 		

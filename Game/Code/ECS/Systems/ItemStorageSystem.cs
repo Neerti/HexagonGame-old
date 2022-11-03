@@ -12,13 +12,13 @@ namespace Hexagon.ECS.Systems
 		/// Tests if a specific item exists inside storage.
 		/// </summary>
 		/// <param name="component">The storage component to test.</param>
-		/// <param name="itemID">The ID of the item to look for.</param>
+		/// <param name="itemKind">The ID of the item to look for.</param>
 		/// <returns>Whether or not there is at least one item contained in storage.</returns>
-		public bool HasItem(ItemStorageComponent component, ItemIDs itemID)
+		public bool HasItem(ItemStorageComponent component, string itemKind)
 		{
 			foreach (var itemInstance in component.Items)
 			{
-				if (itemID == itemInstance.ItemID)
+				if (itemKind == itemInstance.ItemKind)
 				{
 					return true;
 				}
@@ -26,12 +26,12 @@ namespace Hexagon.ECS.Systems
 			return false;
 		}
 
-		public List<ItemInstance> GetAllItemInstancesOfItemID(ItemStorageComponent component, ItemIDs itemID)
+		public List<ItemInstance> GetAllItemInstancesOfItemKind(ItemStorageComponent component, string itemKind)
 		{
 			var result = new List<ItemInstance>();
 			foreach (var itemInstance in component.Items)
 			{
-				if (itemID == itemInstance.ItemID)
+				if (itemKind == itemInstance.ItemKind)
 				{
 					result.Add(itemInstance);
 				}
@@ -46,10 +46,10 @@ namespace Hexagon.ECS.Systems
 		/// ItemInstances necessary.
 		/// </summary>
 		/// <param name="component">The storage component to act on.</param>
-		/// <param name="itemID">The ID of the item to consolidate.</param>
-		public void ConsolidateItems(ItemStorageComponent component, ItemIDs itemID)
+		/// <param name="itemKind">The ID of the item to consolidate.</param>
+		public void ConsolidateItems(ItemStorageComponent component, string itemKind)
 		{
-			var matchingItemInstances = GetAllItemInstancesOfItemID(component, itemID);
+			var matchingItemInstances = GetAllItemInstancesOfItemKind(component, itemKind);
 			var totalAmount = 0;
 			foreach (var itemInstance in matchingItemInstances)
 			{
@@ -59,13 +59,13 @@ namespace Hexagon.ECS.Systems
 
 			var newItemInstances = new List<ItemInstance>();
 
-			var itemData = Singleton.AllItems[itemID];
+			var itemData = Singleton.ItemRegistry.Get(itemKind);
 			
 			while (totalAmount > 0)
 			{
-				var amount = Math.Min(itemData.StackSize, totalAmount);
-				newItemInstances.Add(new ItemInstance(itemID, amount));
-				totalAmount -= itemData.StackSize;
+				var amount = Math.Min(itemData.StackLimit, totalAmount);
+				newItemInstances.Add(new ItemInstance(itemKind, amount));
+				totalAmount -= itemData.StackLimit;
 			}
 			
 			component.Items.AddRange(newItemInstances);

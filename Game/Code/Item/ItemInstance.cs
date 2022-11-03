@@ -2,12 +2,12 @@ namespace Hexagon.Items
 {
 	public struct ItemInstance
 	{
-		public ItemIDs ItemID;
+		public string ItemKind;
 		public int Quantity;
 
-		public ItemInstance(ItemIDs itemID, int quantity)
+		public ItemInstance(string itemKind, int quantity)
 		{
-			ItemID = itemID;
+			ItemKind = itemKind;
 			Quantity = quantity;
 		}
 	}

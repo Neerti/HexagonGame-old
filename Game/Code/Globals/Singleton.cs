@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Hexagon.Datastructures.Registries;
 using Hexagon.Items;
 using Hexagon.Map.Logical.Terrains;
 using Hexagon.Populations;
@@ -10,6 +11,8 @@ namespace Hexagon.Globals
 {
 	public class Singleton
 	{
+		public static readonly ItemRegistry ItemRegistry = new ItemRegistry();
+		
 		public static readonly TechnologyTree ScienceTechTree = TechnologyTreeBuilder.MakeTree(typeof(ScienceNode));
 
 		public static readonly Dictionary<NeedKinds, Need> AllNeeds = PopulateNeeds();

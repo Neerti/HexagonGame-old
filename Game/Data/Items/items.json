@@ -1,0 +1,90 @@
+{
+   "Apple": {
+      "description": "A fruit that came from a tree.",
+      "display_name": "Apple",
+      "need_fulfillment": [
+         {
+            "amount": 0.25,
+            "need": "food"
+         }
+      ],
+      "sprite_color": "#ffffff",
+      "sprite_texture_path": "foo.png",
+      "stack_limit": 100,
+      "volume": 1
+   },
+   "Berry": {
+      "description": "A small, tasty fruit. Not very filling, but easy to forage.",
+      "display_name": "Berry",
+      "need_fulfillment": [
+         {
+            "amount": 0.20000000000000001,
+            "need": "food"
+         }
+      ],
+      "sprite_color": "#ffffff",
+      "sprite_texture_path": "bar.png",
+      "stack_limit": 100,
+      "volume": 1
+   },
+   "ContaminatedWater": {
+      "description": "Not fit for consumption.",
+      "display_name": "Contaminated Water",
+      "need_fulfillment": [
+         {
+            "amount": 1,
+            "need": "water"
+         }
+      ],
+      "sprite_color": "#ffffff",
+      "sprite_texture_path": "todo/soon.png",
+      "stack_limit": 100,
+      "volume": 1
+   },
+   "Rock": {
+      "description": "An ordinary rock.",
+      "display_name": "Rock",
+      "need_fulfillment": [ ],
+      "sprite_color": "#ffffff",
+      "sprite_texture_path": "todo/soon.png",
+      "stack_limit": 100,
+      "volume": 1
+   },
+   "Stick": {
+      "description": "A piece of wood. It was once part of a tree.",
+      "display_name": "Stick",
+      "need_fulfillment": [ ],
+      "sprite_color": "#ffffff",
+      "sprite_texture_path": "todo/soon.png",
+      "stack_limit": 100,
+      "volume": 1
+   },
+   "Tea": {
+      "description": "Warm and delicious tea, prepared using tea leaves and hot water.",
+      "display_name": "Tea",
+      "need_fulfillment": [
+         {
+            "amount": 1,
+            "need": "water"
+         }
+      ],
+      "sprite_color": "#ffffff",
+      "sprite_texture_path": "todo/soon.png",
+      "stack_limit": 100,
+      "volume": 1
+   },
+   "Water": {
+      "description": "Consumed to avoid dying of thirst.",
+      "display_name": "Water",
+      "need_fulfillment": [
+         {
+            "amount": 1,
+            "need": "water"
+         }
+      ],
+      "sprite_color": "#ffffff",
+      "sprite_texture_path": "todo/soon.png",
+      "stack_limit": 100,
+      "volume": 1
+   }
+}

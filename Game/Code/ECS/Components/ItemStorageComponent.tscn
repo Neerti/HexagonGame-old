@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Code/ECS/Components/ItemStorageComponent.cs" type="Script" id=1]
 
-[node name="ItemStorageComponent" type="Node"]
+[node name="ItemStorageComponent" type="Node" groups=["ItemStorageComponents"]]
 script = ExtResource( 1 )

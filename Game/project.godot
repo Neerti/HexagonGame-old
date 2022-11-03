@@ -96,6 +96,10 @@ toggle_technology_ui={
  ]
 }
 
+[mono]
+
+project/assembly_name="Hexagon"
+
 [physics]
 
 common/enable_pause_aware_picking=true

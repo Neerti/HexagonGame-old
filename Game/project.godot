@@ -11,7 +11,7 @@ config_version=4
 [application]
 
 config/name="Hexagon"
-run/main_scene="res://Code/Map/Visual/VisualMaps/VisualMap.tscn"
+run/main_scene="res://Code/Worlds/World.tscn"
 config/icon="res://icon.png"
 
 [display]

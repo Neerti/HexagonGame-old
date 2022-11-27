@@ -11,5 +11,10 @@ local Template = import 'template.libsonnet';
 		description: "An ordinary rock.",
 	},
 
+	Acorn: Template + {
+		display_name: "Acorn"
+		description: "A seed that came from an oak tree."
+	},
+
 
 }

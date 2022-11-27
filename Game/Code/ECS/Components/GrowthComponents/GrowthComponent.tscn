@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Code/ECS/Components/GrowthComponents/GrowthComponent.cs" type="Script" id=1]
+
+[node name="GrowthComponent" type="Node" groups=["GrowthComponents"]]
+script = ExtResource( 1 )

@@ -6,7 +6,7 @@ using Hexagon.Items;
 
 namespace Hexagon.ECS.Systems
 {
-	public class ItemStorageSystem : GameSystem
+	public class ItemStorageSystem : EntitySystem
 	{
 		/// <summary>
 		/// Tests if a specific item exists inside storage.

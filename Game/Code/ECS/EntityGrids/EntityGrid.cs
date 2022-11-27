@@ -7,7 +7,7 @@ namespace Hexagon.ECS.EntityGrids
 	/// A container for entities arranged in a grid pattern, intended to store map data.
 	/// Addressing specific entities can be done spatially with the <see cref="VectorHex"/> object.
 	/// </summary>
-	public class EntityGrid : Node
+	public class EntityGrid
 	{
 		public readonly int SizeX;
 		public readonly int SizeY;
